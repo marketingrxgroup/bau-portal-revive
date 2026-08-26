@@ -121,8 +121,8 @@ export function SiteHeader() {
 
         {/* ROW 2 — main navigation */}
         <div className="border-t border-border bg-secondary/45">
-          <div className="mx-auto flex h-[58px] max-w-[1480px] items-center justify-between gap-4 px-4">
-            <nav className="hidden min-w-0 items-center gap-2 lg:flex">
+          <div className="mx-auto flex h-[52px] max-w-[1480px] items-center justify-between gap-4 px-4">
+            <nav className="hidden min-w-0 items-center divide-x divide-border lg:flex">
               {navItems.map((n) => {
                 const isActive = location.pathname === "/catalog" && n.label === "Налични машини";
                 const selected = isActive || mega === n.label;
@@ -131,17 +131,17 @@ export function SiteHeader() {
                     <Link
                       to="/catalog"
                       search={{ q: n.mega ? "" : n.label }}
-                      className={`inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-md border px-4 text-[14px] font-extrabold leading-none shadow-sm transition-all duration-200 ${
+                      className={`inline-flex h-[52px] items-center gap-1.5 whitespace-nowrap px-4 text-[14px] font-bold leading-none transition-colors duration-150 ${
                         selected
-                          ? "border-ink bg-ink text-ink-foreground shadow-md"
-                          : "border-border bg-surface text-foreground hover:border-signal hover:bg-signal hover:text-signal-foreground hover:shadow-md"
+                          ? "bg-ink text-ink-foreground"
+                          : "text-foreground hover:bg-muted hover:text-foreground"
                       }`}
                     >
                       <span>{n.label}</span>
                       {n.badge && (
                         <span
                           className={`inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-black leading-none ${
-                            selected ? "bg-signal text-signal-foreground" : "bg-ink text-ink-foreground"
+                            selected ? "bg-signal text-ink" : "bg-ink text-ink-foreground"
                           }`}
                         >
                           {n.badge}
@@ -149,7 +149,7 @@ export function SiteHeader() {
                       )}
                       {n.mega && (
                         <ChevronDown
-                          className={`size-4 transition-transform ${mega === n.label ? "rotate-180" : ""}`}
+                          className={`size-4 opacity-60 transition-transform ${mega === n.label ? "rotate-180" : ""}`}
                         />
                       )}
                     </Link>
