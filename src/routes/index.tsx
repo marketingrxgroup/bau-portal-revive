@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, ArrowUpRight, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -8,7 +9,7 @@ import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { MachineCard } from "@/components/site/MachineCard";
 import { CategoryConstellation } from "@/components/site/CategoryConstellation";
-import { categories, machines } from "@/lib/machines";
+import { categories, machinesListQuery } from "@/lib/machines";
 import bannerAgroAsset from "@/assets/banner-fleet.webp.asset.json";
 import bannerForkliftAsset from "@/assets/banner-bautrax.webp.asset.json";
 import footerLogoAsset from "@/assets/footer-logo-bau-portal.png.asset.json";
@@ -22,6 +23,7 @@ const footerLogo = footerLogoAsset.url;
 const searchBg = searchBgAsset;
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(machinesListQuery),
   head: () => ({
     meta: [
       { title: "Bauportal — борса за строителна и складова техника" },
@@ -45,6 +47,7 @@ export const Route = createFileRoute("/")({
 const brands = ["JCB", "Komatsu", "Manitou", "Linde", "Kubota", "Caterpillar", "Volvo", "Bobcat"];
 
 function Home() {
+  const machines = useSuspenseQuery(machinesListQuery).data;
   const promo = machines.slice(0, 4);
   const rest = machines.slice(4);
   const [assistantOpen, setAssistantOpen] = useState(false);
