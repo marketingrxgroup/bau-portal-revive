@@ -22,7 +22,7 @@ export const getMachines = createServerFn({ method: "GET" }).handler(async () =>
 
 // Single published machine by id (null when missing/unpublished).
 export const getMachine = createServerFn({ method: "GET" })
-  .inputValidator((d) => z.object({ id: z.string() }).parse(d))
+  .validator((d) => z.object({ id: z.string() }).parse(d))
   .handler(async ({ data }) => {
     const { data: row, error } = await supabase
       .from("machines")

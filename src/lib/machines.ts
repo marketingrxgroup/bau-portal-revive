@@ -161,5 +161,5 @@ export const machinesListQuery = queryOptions({
 export const machineQuery = (id: string) =>
   queryOptions({
     queryKey: ["machines", id] as const,
-    queryFn: () => getMachine({ id }),
+    queryFn: () => getMachine({ data: { id } }),
   });
