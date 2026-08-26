@@ -1,0 +1,496 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { QuickSearch } from "@/components/site/QuickSearch";
+import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
+import { MachineCard } from "@/components/site/MachineCard";
+import { Slider } from "@/components/ui/slider";
+import { categories, machines } from "@/lib/machines";
+
+type CatalogSearch = { q: string };
+
+export const Route = createFileRoute("/catalog")({
+  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+    q: typeof search["q"] === "string" ? (search["q"] as string) : "",
+  }),
+  head: () => ({
+    meta: [
+      { title: "Каталог машини — багери, кари, товарачи | Bauportal" },
+      {
+        name: "description",
+        content:
+          "Разгледайте обявите за строителна и складова техника с филтри по категория, марка и година.",
+      },
+      { property: "og:title", content: "Каталог машини | Bauportal" },
+      { property: "og:description", content: "Филтрирайте багери, кари и товарачи по марка и година." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Catalog,
+});
+
+function Catalog() {
+  const { q } = Route.useSearch();
+  const [category, setCategory] = useState<string>("Всички");
+  const [subcategory, setSubcategory] = useState<string>("Всички");
+  const [brand, setBrand] = useState<string>("Всички");
+  const [condition, setCondition] = useState<"all" | "Нова" | "Втора употреба">("all");
+  const [brandQuery, setBrandQuery] = useState("");
+  const [yearFrom, setYearFrom] = useState<string>("");
+  const [yearTo, setYearTo] = useState<string>("");
+  const [priceMin, setPriceMin] = useState<string>("");
+  const [priceMax, setPriceMax] = useState<string>("");
+  const [sort, setSort] = useState<string>("new");
+  const [catQuery, setCatQuery] = useState("");
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [assistantQuery, setAssistantQuery] = useState("");
+
+  const priceBounds = useMemo(() => {
+    const prices = machines.map((m) => m.price ?? 0).filter((p) => p > 0);
+    return { min: Math.min(...prices), max: Math.max(...prices) };
+  }, []);
+
+  const brands = useMemo(() => ["Всички", ...new Set(machines.map((m) => m.brand))], []);
+
+  const categoryCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    machines.forEach((m) => map.set(m.category, (map.get(m.category) ?? 0) + 1));
+    return map;
+  }, []);
+
+  const results = useMemo(() => {
+    const needle = q.toLowerCase();
+    const yFrom = yearFrom ? parseInt(yearFrom, 10) : null;
+    const yTo = yearTo ? parseInt(yearTo, 10) : null;
+    const pMin = priceMin ? parseInt(priceMin, 10) : null;
+    const pMax = priceMax ? parseInt(priceMax, 10) : null;
+
+    const list = machines.filter((m) => {
+      const matchCat = category === "Всички" || m.category === category;
+      const matchSub = subcategory === "Всички" || m.subcategory === subcategory;
+      const matchBrand = brand === "Всички" || m.brand === brand;
+      const matchCondition = condition === "all" || m.condition === condition;
+      const matchYear = (!yFrom || m.year >= yFrom) && (!yTo || m.year <= yTo);
+      const matchPrice =
+        m.price !== null &&
+        (pMin === null || m.price >= pMin) &&
+        (pMax === null || m.price <= pMax);
+      const haystack = `${m.title} ${m.brand} ${m.category} ${m.subcategory ?? ""} ${m.tags.join(" ")} ${m.location}`.toLowerCase();
+      const matchQuery =
+        !needle ||
+        needle
+          .split(/[\s,]+/)
+          .filter((w) => w.length > 2)
+          .some((w) => haystack.includes(w));
+      return matchCat && matchSub && matchBrand && matchCondition && matchYear && matchPrice && matchQuery;
+    });
+    const price = (m: (typeof machines)[number]) => m.price ?? Number.MAX_SAFE_INTEGER;
+    if (sort === "price-asc") return [...list].sort((a, b) => price(a) - price(b));
+    if (sort === "price-desc") return [...list].sort((a, b) => price(b) - price(a));
+    if (sort === "year") return [...list].sort((a, b) => b.year - a.year);
+    return list;
+  }, [q, category, subcategory, brand, condition, yearFrom, yearTo, priceMin, priceMax, sort]);
+
+  const subcategories = useMemo(() => {
+    if (category === "Всички") return [];
+    const counts = new Map<string, number>();
+    machines
+      .filter((m) => m.category === category)
+      .forEach((m) => {
+        if (m.subcategory) counts.set(m.subcategory, (counts.get(m.subcategory) ?? 0) + 1);
+      });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  }, [category]);
+
+  const visibleCategories = useMemo(() => {
+    const needle = catQuery.trim().toLowerCase();
+    const list = categories.map((c) => ({ name: c.name, count: categoryCounts.get(c.name) ?? c.count }));
+    return needle ? list.filter((c) => c.name.toLowerCase().includes(needle)) : list;
+  }, [catQuery, categoryCounts]);
+
+  const chips = [
+    brand !== "Всички" ? { label: brand, clear: () => setBrand("Всички") } : null,
+    condition !== "all" ? { label: condition, clear: () => setCondition("all") } : null,
+    yearFrom || yearTo ? { label: `Година: ${yearFrom || "…"} – ${yearTo || "…"}`, clear: () => { setYearFrom(""); setYearTo(""); } } : null,
+    priceMin || priceMax ? { label: `Цена: ${priceMin || "…"} – ${priceMax || "…"} €`, clear: () => { setPriceMin(""); setPriceMax(""); } } : null,
+  ].filter(Boolean) as { label: string; clear: () => void }[];
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <SearchAssistantModal
+        open={assistantOpen}
+        onClose={() => setAssistantOpen(false)}
+        initialQuery={assistantQuery}
+      />
+
+      <div className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1480px] px-4 py-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="min-w-0">
+              <nav className="text-xs text-foreground/70">
+                <Link to="/" className="hover:text-foreground">
+                  Начало
+                </Link>{" "}
+                / <span className="text-foreground">{category === "Всички" ? "Налични машини" : category}</span>
+              </nav>
+              <h1 className="mt-2 text-2xl font-extrabold text-foreground sm:text-3xl">
+                {category === "Всички" ? "Налична строителна техника и машини" : `Продажба на ${category.toLowerCase()}`}
+              </h1>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-foreground/70">
+                Открийте <strong className="font-semibold text-foreground">нови и употребявани машини</strong>, налични за бърза
+                продажба и доставка — сервизирани и готови за работа. Подбрани предложения за строителството, индустрията и
+                професионалната дейност, включително възможност за внос по поръчка.
+              </p>
+              {q && (
+                <p className="mt-2 text-sm text-foreground/70">
+                  Резултати за: <span className="bg-signal px-1.5 font-semibold text-signal-foreground">{q}</span>
+                </p>
+              )}
+            </div>
+
+            <div className="grid shrink-0 grid-cols-3 gap-3 lg:w-[420px]">
+              {[
+                { v: `${results.length}`, l: "обяви в категорията" },
+                { v: "24ч", l: "отговор на запитване" },
+                { v: "БГ+ЕС", l: "доставка и внос" },
+              ].map((s) => (
+                <div key={s.l} className="rounded-2xl border border-border bg-muted/50 px-4 py-3">
+                  <div className="text-xl font-extrabold leading-none text-foreground">{s.v}</div>
+                  <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-foreground/70">
+                    {s.l}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-5">
+            <QuickSearch
+              onOpenAssistant={(query) => {
+                setAssistantQuery(query);
+                setAssistantOpen(true);
+              }}
+            />
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div className="mx-auto grid max-w-[1480px] gap-6 px-4 py-8 lg:grid-cols-[300px_1fr]">
+        <aside className="h-fit space-y-4 lg:sticky lg:top-[120px]">
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h2 className="mb-4 text-lg font-extrabold tracking-tight">Категории</h2>
+
+            <div className="relative mb-3">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-foreground/60" />
+              <input
+                value={catQuery}
+                onChange={(e) => setCatQuery(e.target.value)}
+                placeholder="Търси"
+                className="w-full rounded-full border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+            </div>
+            <ul className="max-h-[420px] space-y-0.5 overflow-y-auto pr-1">
+              <li>
+                <button
+                  onClick={() => {
+                    setCategory("Всички");
+                    setSubcategory("Всички");
+                  }}
+                  className={`flex w-full items-center justify-between rounded-r-lg border-l-2 px-3 py-1.5 text-left text-sm transition-colors ${
+                    category === "Всички"
+                      ? "border-foreground/30 bg-signal font-bold text-signal-foreground"
+                      : "border-transparent text-foreground/80 hover:bg-muted/60 hover:text-foreground"
+                  }`}
+                >
+                  Всички <span className={`text-xs font-semibold ${category === "Всички" ? "text-signal-foreground/80" : "text-foreground/70"}`}>({machines.length})</span>
+                </button>
+              </li>
+              {visibleCategories.map((c) => {
+                const isSelected = category === c.name;
+                return (
+                  <li key={c.name}>
+                    <button
+                      onClick={() => {
+                        setCategory(c.name);
+                        setSubcategory("Всички");
+                      }}
+                      className={`flex w-full items-center justify-between rounded-r-lg border-l-2 px-3 py-1.5 text-left text-sm transition-colors ${
+                        isSelected
+                          ? "border-foreground/30 bg-signal font-bold text-signal-foreground"
+                          : "border-transparent text-foreground/80 hover:bg-muted/60 hover:text-foreground"
+                      }`}
+                    >
+                      <span>{c.name}</span>
+                      <span className={`text-xs font-semibold ${isSelected ? "text-signal-foreground/80" : "text-foreground/70"}`}>({c.count})</span>
+                    </button>
+                    {isSelected && subcategories.length > 0 && (
+                      <ul className="mt-1 mb-2 space-y-0.5 pl-4">
+                        {subcategories.map((s) => (
+                          <li key={s.label}>
+                            <button
+                              onClick={() => setSubcategory(s.label)}
+                              className={`flex w-full items-center justify-between rounded-r-lg border-l-2 px-3 py-1 text-left text-sm transition-colors ${
+                                subcategory === s.label
+                                  ? "border-foreground/30 bg-signal font-semibold text-signal-foreground"
+                                  : "border-transparent text-foreground/70 hover:bg-muted/60 hover:text-foreground"
+                              }`}
+                            >
+                              {s.label}
+                              <span className="text-xs text-foreground/70">({s.count})</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Състояние */}
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h2 className="mb-3 text-sm font-extrabold tracking-tight">Състояние</h2>
+            <ul className="space-y-1">
+              {[
+                { key: "all", label: "Всички", count: machines.length },
+                { key: "Нова", label: "Нови", count: machines.filter((m) => m.condition === "Нова").length },
+                { key: "Втора употреба", label: "Втора употреба", count: machines.filter((m) => m.condition === "Втора употреба").length },
+              ].map((c) => (
+                <li key={c.key}>
+                  <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 transition-colors hover:bg-muted/50">
+                    <input
+                      type="checkbox"
+                      checked={condition === (c.key as typeof condition)}
+                      onChange={() => setCondition(c.key as typeof condition)}
+                      className="size-4 rounded border-border text-signal focus:ring-signal"
+                    />
+                    <span className="flex-1 text-sm text-foreground">{c.label}</span>
+                    <span className="text-xs font-semibold text-foreground/60">({c.count})</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Марка */}
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h2 className="mb-3 text-sm font-extrabold tracking-tight">Марка</h2>
+            <div className="relative mb-3">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-foreground/50" />
+              <input
+                value={brandQuery}
+                onChange={(e) => setBrandQuery(e.target.value)}
+                placeholder="Търси"
+                className="w-full rounded-full border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+            </div>
+            <ul className="max-h-[260px] space-y-0.5 overflow-y-auto pr-1 [-ms-overflow-style:none] [scrollbar-width:none]">
+              <li>
+                <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 transition-colors hover:bg-muted/50">
+                  <input
+                    type="checkbox"
+                    checked={brand === "Всички"}
+                    onChange={() => setBrand("Всички")}
+                    className="size-4 rounded border-border text-signal focus:ring-signal"
+                  />
+                  <span className="flex-1 text-sm text-foreground">Всички</span>
+                  <span className="text-xs font-semibold text-foreground/60">({machines.length})</span>
+                </label>
+              </li>
+              {brands
+                .filter((b) => b !== "Всички" && b.toLowerCase().includes(brandQuery.trim().toLowerCase()))
+                .map((b) => {
+                  const count = machines.filter((m) => m.brand === b).length;
+                  return (
+                    <li key={b}>
+                      <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 transition-colors hover:bg-muted/50">
+                        <input
+                          type="checkbox"
+                          checked={brand === b}
+                          onChange={() => setBrand(b)}
+                          className="size-4 rounded border-border text-signal focus:ring-signal"
+                        />
+                        <span className="flex-1 text-sm text-foreground">{b}</span>
+                        <span className="text-xs font-semibold text-foreground/60">({count})</span>
+                      </label>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+
+          {/* Година */}
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h2 className="mb-3 text-sm font-extrabold tracking-tight">Година</h2>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={yearFrom}
+                onChange={(e) => setYearFrom(e.target.value)}
+                placeholder="От"
+                className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+              <span className="text-foreground/50">–</span>
+              <input
+                type="number"
+                value={yearTo}
+                onChange={(e) => setYearTo(e.target.value)}
+                placeholder="До"
+                className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+              <button
+                type="button"
+                className="h-10 shrink-0 rounded-full bg-signal px-4 text-xs font-bold uppercase tracking-wider text-signal-foreground transition-colors hover:bg-signal/90"
+              >
+                Търси
+              </button>
+            </div>
+          </div>
+
+          {/* Цена */}
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h2 className="mb-3 text-sm font-extrabold tracking-tight">Цена</h2>
+            <div className="mb-4 px-1">
+              <Slider
+                value={[
+                  priceMin ? Math.max(priceBounds.min, parseInt(priceMin, 10)) : priceBounds.min,
+                  priceMax ? Math.min(priceBounds.max, parseInt(priceMax, 10)) : priceBounds.max,
+                ]}
+                max={priceBounds.max}
+                min={priceBounds.min}
+                step={1000}
+                onValueChange={([min, max]) => {
+                  setPriceMin(String(min));
+                  setPriceMax(String(max));
+                }}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={priceMin}
+                onChange={(e) => setPriceMin(e.target.value)}
+                placeholder="Мин. цена"
+                className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+              <span className="text-foreground/50">–</span>
+              <input
+                type="number"
+                value={priceMax}
+                onChange={(e) => setPriceMax(e.target.value)}
+                placeholder="Макс. цена"
+                className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink"
+              />
+              <button
+                type="button"
+                className="h-10 shrink-0 rounded-full bg-signal px-4 text-xs font-bold uppercase tracking-wider text-signal-foreground transition-colors hover:bg-signal/90"
+              >
+                Търси
+              </button>
+            </div>
+          </div>
+
+        </aside>
+
+        <section>
+          <div className="mb-4 rounded-xl border border-border bg-surface px-4 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm font-semibold text-foreground">
+                {results.length} {results.length === 1 ? "обява" : "обяви"}
+              </p>
+              <div className="flex items-center gap-2">
+                <label htmlFor="sort" className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">
+                  Подреди
+                </label>
+                <select
+                  id="sort"
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="rounded-lg border border-border bg-background px-2 py-1.5 text-[13px] text-foreground outline-none"
+                >
+                  <option value="new">Най-нови</option>
+                  <option value="price-asc">Цена ↑</option>
+                  <option value="price-desc">Цена ↓</option>
+                  <option value="year">Година</option>
+                </select>
+              </div>
+            </div>
+
+            {chips.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
+                {chips.map((c) => (
+                  <button
+                    key={c.label}
+                    onClick={c.clear}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-semibold text-foreground/90 hover:bg-ink hover:text-ink-foreground"
+                  >
+                    {c.label} ✕
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {subcategories.length > 0 && (
+            <div className="mb-4 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setSubcategory("Всички")}
+                className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] font-semibold transition-colors ${
+                  subcategory === "Всички"
+                    ? "border-ink bg-ink text-ink-foreground"
+                    : "border-border bg-surface text-foreground/80 hover:border-ink hover:text-foreground"
+                }`}
+              >
+                Всички
+                <span className={`rounded-full px-1.5 text-[11px] ${subcategory === "Всички" ? "bg-white/15" : "bg-muted text-foreground/70"}`}>
+                  {subcategories.reduce((sum, s) => sum + s.count, 0)}
+                </span>
+              </button>
+              {subcategories.map((s) => (
+                <button
+                  key={s.label}
+                  type="button"
+                  onClick={() => setSubcategory(s.label)}
+                  className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] font-semibold transition-colors ${
+                    subcategory === s.label
+                      ? "border-ink bg-ink text-ink-foreground"
+                      : "border-border bg-surface text-foreground/80 hover:border-ink hover:text-foreground"
+                  }`}
+                >
+                  {s.label}
+                  <span className={`rounded-full px-1.5 text-[11px] ${subcategory === s.label ? "bg-white/15" : "bg-muted text-foreground/70"}`}>
+                    {s.count}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {results.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border p-10 text-center text-sm text-foreground/70">
+              Няма съвпадения. Опитайте с по-общо описание.
+            </p>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {results.map((m) => (
+                <MachineCard key={m.id} machine={m} />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+
+      <SiteFooter />
+    </div>
+  );
+}
+
