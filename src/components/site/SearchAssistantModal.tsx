@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Search, Sparkles, X, ArrowRight, CornerDownLeft } from "lucide-react";
-import { machines, formatPrice } from "@/lib/machines";
+import { machinesListQuery, formatPrice, type Machine } from "@/lib/machines";
 
-type Msg = { role: "ai" | "user"; text: string; results?: typeof machines };
+type Msg = { role: "ai" | "user"; text: string; results?: Machine[] };
 
 const suggestions = [
   "Мини багер до 30 000 €",
@@ -18,7 +19,7 @@ const placeholders = [
   "„Телескопичен товарач за ферма, след 2018 г.“",
 ];
 
-function searchMachines(q: string) {
+function searchMachines(q: string, machines: Machine[]) {
   const words = q.toLowerCase().split(/[\s,]+/).filter((w) => w.length > 2);
   const priceMatch = q.match(/(\d[\d\s.]{2,})\s*(€|евро|eur|лв)?/i);
   const maxPrice = priceMatch?.[1] ? Number(priceMatch[1].replace(/[\s.]/g, "")) : null;
@@ -51,6 +52,7 @@ export function SearchAssistantModal({ open, onClose, initialQuery = "" }: { ope
   const scrollRef = useRef<HTMLDivElement>(null);
   const autoAskedRef = useRef<string | null>(null);
   const navigate = useNavigate();
+  const { data: machines } = useQuery(machinesListQuery);
 
   useEffect(() => {
     if (!open) return;
@@ -109,7 +111,7 @@ export function SearchAssistantModal({ open, onClose, initialQuery = "" }: { ope
     setMessages((m) => [...m, { role: "user", text: query }]);
     setThinking(true);
     window.setTimeout(() => {
-      const results = searchMachines(query);
+      const results = searchMachines(query, machines ?? []);
       setThinking(false);
       setMessages((m) => [
         ...m,
