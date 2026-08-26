@@ -1,12 +1,27 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  Zap,
+  CalendarDays,
+  Weight,
+  Clock,
+  MoveVertical,
+  Package,
+  Shovel,
+  type LucideIcon,
+} from "lucide-react";
 import slide1 from "@/assets/1-mini-bager-slider.jpg.asset.json";
 import slide2 from "@/assets/2-kran-slider.jpg.asset.json";
 import slide3 from "@/assets/3-bager.jpg.asset.json";
 import slide5 from "@/assets/bautrax-sl8x.webp.asset.json";
 import slide6 from "@/assets/ofis-konteyner.webp.asset.json";
 import zoomlionSlide from "@/assets/zoomlion-mini-bager.webp.asset.json";
+import fleetBanner from "@/assets/banner-fleet.webp.asset.json";
+import forkliftBanner from "@/assets/banner-forklift.jpg";
 
 const hero = slide3.url;
 const excavator = slide1.url;
@@ -15,15 +30,47 @@ const wheelloader = slide5.url;
 const bobcat = slide6.url;
 const bannerH30d = zoomlionSlide.url;
 
+const promos: { title: string; text: string; image: string; q: string }[] = [
+  {
+    title: "Налични машини на склад",
+    text: "Строителна техника и оборудване",
+    image: fleetBanner.url,
+    q: "",
+  },
+  {
+    title: "Топ оферти по поръчка",
+    text: "Употребявана строителна техника и машини",
+    image: forkliftBanner,
+    q: "втора употреба",
+  },
+];
+
+const SPEC_ICONS: Record<string, LucideIcon> = {
+  Марка: ShieldCheck,
+  Мощност: Zap,
+  Година: CalendarDays,
+  Тегло: Weight,
+  Часове: Clock,
+  Височина: MoveVertical,
+  Товар: Package,
+  Кофа: Shovel,
+};
+
+const specIcon = (k: string): LucideIcon => SPEC_ICONS[k] ?? ShieldCheck;
+
+const specsOf = (s: Slide): [string, string][] => [["Марка", s.brand], ...s.specs];
+
 type Slide = {
   kicker: string;
   title: string;
+  brand: string;
   text: string;
   cta: string;
   id: string;
   image: string;
   specs: [string, string][];
 };
+
 
 const slides: Slide[] = [
   {
