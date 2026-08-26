@@ -88,6 +88,8 @@
   --ink: oklch(0.08 0.005 90);
   --ink-foreground: oklch(0.985 0 0);
   --signal: oklch(0.855 0.168 92);
+  --signal-dark: oklch(0.72 0.155 82);
+
   --signal-foreground: oklch(0.08 0.005 90);
   --badge-new: oklch(0.62 0.18 145);
   --badge-new-foreground: oklch(0.985 0 0);
