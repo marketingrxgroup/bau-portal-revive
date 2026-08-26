@@ -1,38 +1,12 @@
-import miniExcavator from "@/assets/m-mini-excavator.jpg";
-import forklift from "@/assets/m-forklift.jpg";
-import telehandler from "@/assets/m-telehandler.jpg";
-import excavator from "@/assets/m-excavator.jpg";
-import wheelloader from "@/assets/m-wheelloader.jpg";
-import bobcatT590 from "@/assets/m-bobcat-t590.jpg";
-import backhoeLoader from "@/assets/m-backhoe-loader.jpg";
-import zoomlionMiniExcavatorAsset from "@/assets/zoomlion-mini-bager.webp.asset.json";
-import lonkingCdm6035Asset from "@/assets/lonking-cdm6035.webp.asset.json";
-import lonkingCdm312tAsset from "@/assets/lonking-cdm312t.webp.asset.json";
-import xcmgXc7Sr08Asset from "@/assets/xcmg-xc7-sr08.webp.asset.json";
-import bautraxBlx90Asset from "@/assets/bautrax-blx90.webp.asset.json";
-import bautraxSl12Asset from "@/assets/bautrax-sl12.webp.asset.json";
-import bautraxSpc30Asset from "@/assets/bautrax-spc30.webp.asset.json";
+import { queryOptions } from "@tanstack/react-query";
 import tifermecLogo from "@/assets/tifermec-logo.png.asset.json";
-import caseCx250dAsset from "@/assets/case-cx250d-2016.webp.asset.json";
-import dizelovMotokarAsset from "@/assets/dizelov-motokar-doosan-d35c-7.webp.asset.json";
 
+// Static brand logo map (logos are shared assets, not per-listing data).
 export const brandLogos: Record<string, string> = {
   Eurocomach: tifermecLogo.url,
   Tifermec: tifermecLogo.url,
   Zoomlion: tifermecLogo.url,
 };
-
-const zoomlionMiniExcavator = zoomlionMiniExcavatorAsset.url;
-const lonkingCdm6035 = lonkingCdm6035Asset.url;
-const lonkingCdm312t = lonkingCdm312tAsset.url;
-const xcmgXc7Sr08 = xcmgXc7Sr08Asset.url;
-const bautraxBlx90 = bautraxBlx90Asset.url;
-const bautraxSl12 = bautraxSl12Asset.url;
-const bautraxSpc30 = bautraxSpc30Asset.url;
-const caseCx250d = caseCx250dAsset.url;
-const dizelovMotokar = dizelovMotokarAsset.url;
-
-
 
 export type DescriptionBlock =
   | { type: "h2"; text: string }
@@ -68,6 +42,7 @@ export type Machine = {
   basicDescription?: string[];
   descriptionBlocks?: DescriptionBlock[];
   faq?: { q: string; a: string }[];
+  featured?: boolean;
   leasing?: {
     provider: "tbi bank" | "UniCredit Consumer Financing" | "OTP Leasing";
     monthlyFrom: number;
@@ -106,456 +81,85 @@ export const categories = [
   { slug: "selskostopanska", name: "Селскостопанска техника", count: 88 },
 ];
 
-export const machines: Machine[] = [
-  {
-    id: "mini-excavator-em10",
-    title: "Мини багер EM10",
-    brand: "Eurocomach",
-    catNo: "BTX18736",
-    model: "CASE CX250D",
-    category: "Багери",
-    subcategory: "Мини багери",
-    year: 2016,
-    hours: 940,
-    weightT: 1.1,
-    powerHp: 13,
-    price: 21900,
-    originalPrice: 25900,
-    location: "София",
-    condition: "Втора употреба",
-    image: lonkingCdm6035,
-    tags: ["Гусенична", "Дизел", "Гаранция"],
-    description:
-      "CASE CX250D е верижен хидравличен багер от 2016 г., предназначен за професионална работа в строителството, инфраструктурата, пътното строителство и тежките земни дейности. Машината е подходяща за изкопи, товарене на инертни материали, подравняване на терени, работа в кариери, канали, основи и други строителни приложения.",
-    specs: [
-      { label: "Марка", value: "CASE Construction" },
-      { label: "Модел", value: "CX250D" },
-      { label: "Работно тегло", value: "27 300 кг" },
-      { label: "Мощност на двигателя", value: "140 kW / около 190 к.с." },
-      { label: "Двигател", value: "FPT / NEF 6.7" },
-      { label: "Скорост на движение", value: "до 5.6 км/ч" },
-      { label: "Сила на разкъсване", value: "161 kN" },
-      { label: "Производител", value: "CNH Industrial Italia S.p.A." },
-      { label: "Произход", value: "ЕС" },
-    ],
-    longDescription: [
-      "CASE CX250D е верижен хидравличен багер от средно-тежкия клас, създаден за интензивна ежедневна работа при тежки условия. С работно тегло от 27 300 кг и стабилно верижно шаси машината запазва отлична устойчивост при копаене на дълбочина, работа със скални материали и товарене на самосвали.",
-      "Двигателят FPT NEF 6.7 развива 140 kW (около 190 к.с.) и е съчетан с хидравлична система с висока производителност, която осигурява сила на разкъсване от 161 kN и плавно съвместяване на движенията. Резултатът е бърз работен цикъл, ниска консумация на гориво и предвидимо поведение под товар.",
-      "Максималната дълбочина на копаене е 6 940 мм, а хоризонталният обсег достига 10 220 мм, което позволява работа по канали, основи, насипи и подравняване без често премествне на машината. Скоростта на придвижване е до 5.6 км/ч.",
-      "Машината е произведена от CNH Industrial Italia S.p.A. с произход ЕС и е подходяща за строителни фирми, пътни строители, кариери и предприятия, които търсят надеждна техника с достъпна поддръжка и налични резервни части.",
-    ],
-    descriptionBlocks: [
-      {
-        type: "h2",
-        text: "Газов мотокар Bautrax FORK30 за товаро-разтоварни и складови операции в смесени работни зони",
-      },
-      {
-        type: "p",
-        text: "Газов мотокар Bautrax FORK30 се използва за товаро-разтоварни и складови операции в смесени работни зони. Основните задачи включват преместване, повдигане и подреждане на палетизирани товари.",
-      },
-      {
-        type: "p",
-        text: "Газов мотокар Bautrax FORK30 е с товароподемност 3000 кг, височина на повдигане 3000 мм, мощност 37.4 kW / 2500 rpm; 45.1 kW / 2600 rpm. При работа с Газов мотокар Bautrax FORK30 товароподемността, височината на повдигане и габаритите трябва да бъдат съобразени с конкретната задача и условията на обекта.",
-      },
-      { type: "h3", text: "Приложение и работна среда" },
-      {
-        type: "p",
-        text: "Газов мотокар Bautrax FORK30 може да се използва за преместване, повдигане и подреждане на палетизирани товари. При избор на Газов мотокар Bautrax FORK30 най-важни са товароподемността, височината на повдигане, мачтата, товарният център и размерите.",
-      },
-      {
-        type: "p",
-        text: "Преди работа с Газов мотокар Bautrax FORK30 трябва да се проверят: вентилацията, ширината на проходите, настилката и остатъчната товароподемност. При сравнение могат да се разгледат мотокари на газ и подходящи мотокари. Съвместимостта трябва да бъде проверена спрямо изискванията и начина на работа на Газов мотокар Bautrax FORK30.",
-      },
-      { type: "h3", text: "Практическо значение на основните характеристики" },
-      {
-        type: "p",
-        text: "Техническите показатели на Газов мотокар Bautrax FORK30 трябва да се разглеждат заедно, защото работният капацитет зависи едновременно от мощността, теглото, размерите, работния обхват и конкретното оборудване. Следващите характеристики показват как реалните стойности влияят върху работата, транспорта, достъпа и съвместимостта с планираната задача.",
-      },
-      {
-        type: "ul",
-        items: [
-          "Двигател: Nissan K25; Мощност: 37.4 kW / 2500 rpm; 45.1 kW / 2600 rpm; Работен обем: 2472 / 2359 cc. Тези показатели определят енергийния капацитет и способността на Газов мотокар Bautrax FORK30 да поддържа работния режим при продължително натоварване.",
-          "Тегло: 4367 / 4380 кг. Теглото влияе върху стабилността, натоварването на настилката и изискванията за транспорт до обекта.",
-          "Товароподемност: 3000 кг. Товарът трябва да се съобрази с работния радиус, височината и конкретната конфигурация, а не само с максималната стойност.",
-          "Височина на повдигане: 3000 мм. Показателят определя до каква височина може да се изпълнява повдигане, монтаж или разтоварване.",
-          "Скорост на движение: 20 / 19 км/ч. Скоростта има значение за придвижването между отделни работни точки и за организацията на вътрешнообектовите операции.",
-          "Обща ширина: 1220 мм. Размерите трябва да се проверят спрямо входове, проходи, транспортни ограничения и свободното пространство за маневриране.",
-          "Хидравлична система: Shimadzu; Работно налягане за прикачен инвентар: 18.5 MPa. Хидравличните показатели са решаващи за производителността и съвместимостта с прикачен инвентар.",
-          "Наклон на мачтата напред / назад: 6° / 12°; Преодолим наклон: 26 / 25%. Въртенето и накланянето определят възможностите за точно позициониране при монтаж.",
-        ],
-      },
-      { type: "h3", text: "Технически характеристики" },
-      {
-        type: "table",
-        rows: [
-          { label: "Марка", value: "BAUTRAX" },
-          { label: "Модел", value: "FORK30" },
-          { label: "Тип машина", value: "Газов мотокар" },
-          { label: "Година", value: "2026" },
-          { label: "Състояние", value: "Нова" },
-          { label: "Статус", value: "Налична за оглед" },
-          { label: "Товароподемност", value: "3000 кг" },
-          { label: "Височина на повдигане", value: "3000 мм" },
-          { label: "Товарен център", value: "500 мм" },
-          { label: "Свободен ход на мачтата", value: "125 мм" },
-          { label: "Двигател", value: "Nissan K25" },
-          { label: "Гориво", value: "LPG" },
-          { label: "Мощност", value: "37.4 kW / 2500 rpm; 45.1 kW / 2600 rpm" },
-          { label: "Работен обем", value: "2472 / 2359 cc" },
-          { label: "Брой цилиндри", value: "4" },
-          { label: "Максимален въртящ момент", value: "176.5 / 1600; 171 / 1900 N·m" },
-          { label: "Трансмисия", value: "Хидравлична" },
-          { label: "Хидравлична система", value: "Shimadzu" },
-          { label: "Работно налягане за прикачен инвентар", value: "18.5 MPa" },
-          { label: "Резервоар за гориво", value: "60 л" },
-          { label: "Батерия", value: "12 V / 60 Ah" },
-          { label: "Тегло", value: "4367 / 4380 кг" },
-          { label: "Обща ширина", value: "1220 мм" },
-          { label: "Междуосие", value: "1700 мм" },
-          { label: "Клиренс", value: "125 мм" },
-          { label: "Радиус на завиване", value: "2425 мм" },
-          { label: "Размер на вилиците", value: "1070 × 122 × 45 мм" },
-          { label: "Дължина до челото на вилиците", value: "2697 мм" },
-          { label: "Височина на прибрана мачта", value: "2115 мм" },
-          { label: "Височина на разгъната мачта", value: "4213 мм" },
-          { label: "Височина на предпазния покрив", value: "2235 мм" },
-          { label: "Минимална ширина на проход за палети", value: "4180 мм" },
-          { label: "Наклон на мачтата напред / назад", value: "6° / 12°" },
-          { label: "Скорост на движение", value: "20 / 19 км/ч" },
-          { label: "Скорост на повдигане", value: "439 / 479 мм/сек" },
-          { label: "Скорост на спускане", value: "≤600 / ≥300 мм/сек" },
-          { label: "Преодолим наклон", value: "26 / 25%" },
-          { label: "Максимална теглителна сила", value: "19.6 / 19.1 kN" },
-          { label: "Предни гуми", value: "28×9-15-14PR" },
-          { label: "Задни гуми", value: "6.50-10-10PR" },
-          { label: "Предна следа", value: "1000 мм" },
-          { label: "Задна следа", value: "980 мм" },
-          { label: "Надвес на вилиците", value: "467 мм" },
-          { label: "Заден надвес", value: "530 мм" },
-          { label: "Скорости напред / назад", value: "1 / 1" },
-          { label: "Приложение", value: "Складова работа, товаро-разтоварни дейности, палети и вътрешно-външно преместване на товари" },
-        ],
-      },
-      { type: "h3", text: "Оборудване на Газов мотокар Bautrax FORK30" },
-      {
-        type: "p",
-        text: "Газов мотокар Bautrax FORK30 включва: вилици. Оборудването на Газов мотокар Bautrax FORK30 е част от конкретната му конфигурация и трябва да се използва според предназначението на всеки елемент.",
-      },
-      { type: "h2", text: "Често задавани въпроси" },
-      {
-        type: "faq",
-        items: [
-          {
-            q: "За какви задачи се използва Газов мотокар Bautrax FORK30?",
-            a: "Газов мотокар Bautrax FORK30 се използва за товаро-разтоварни и складови операции в смесени работни зони. Може да се използва за преместване, повдигане и подреждане на палетизирани товари, когато работните характеристики отговарят на реалния обем работа. Преди работа с Газов мотокар Bautrax FORK30 трябва да се проверят: вентилацията, ширината на проходите, настилката и остатъчната товароподемност, защото това влияе върху безопасната и ефективната работа.",
-          },
-          {
-            q: "Каква е товароподемността на Газов мотокар Bautrax FORK30?",
-            a: "Товароподемността на Газов мотокар Bautrax FORK30 е 3000 кг. Тази товароподемност трябва да се сравни с реалното тегло на товара и условията, при които той ще бъде повдиган или преместван.",
-          },
-          {
-            q: "Какво е състоянието на Газов мотокар Bautrax FORK30?",
-            a: "Състоянието на Газов мотокар Bautrax FORK30 е ново – година 2026. При покупка на Газов мотокар Bautrax FORK30 трябва да се проверят конкретната оборудване, гаранционните условия и годината на производство.",
-          },
-          {
-            q: "Каква е височината на повдигане на Газов мотокар Bautrax FORK30?",
-            a: "Височината на повдигане при Газов мотокар Bautrax FORK30 е 3000 мм. Тази височина на повдигане определя достижимата работна зона; необходимо е да се предвидят реалната височина, работният радиус и безопасният резерв.",
-          },
-          {
-            q: "С какво оборудване е конфигуриран Газов мотокар Bautrax FORK30?",
-            a: "Газов мотокар Bautrax FORK30 включва: вилици. Тази оборудване се отнася само за Газов мотокар Bautrax FORK30 и не трябва да се приема като стандартна за всички конфигурации от същия модел. Оборудването на Газов мотокар Bautrax FORK30 има практическо значение само когато е съобразено с конкретната работа и техническата съвместимост.",
-          },
-        ],
-      },
-      { type: "h3", text: "Обобщение" },
-      {
-        type: "p",
-        text: "Газов мотокар Bautrax FORK30 се използва за товаро-разтоварни и складови операции в смесени работни зони. Изборът на Газов мотокар Bautrax FORK30 зависи от товароподемността, височината на повдигане, мачтата, товарният център и размерите, както и от проверката на вентилацията, ширината на проходите, настилката и остатъчната товароподемност.",
-      },
-    ],
-    faq: [
-      {
-        q: "За какво е подходящ CASE CX250D?",
-        a: "Машината е подходяща за изкопни работи, строителство, пътна инфраструктура, товарене на материали, подготовка на терени, канали, основи и работа в кариери.",
-      },
-      {
-        q: "Какво е работното тегло на багера?",
-        a: "Работното тегло на CASE CX250D е 27 300 кг, което го поставя в класа на средно-тежките верижни багери.",
-      },
-      {
-        q: "Каква е мощността на двигателя?",
-        a: "Двигателят е с мощност 140 kW, което се равнява приблизително на 190 к.с.",
-      },
-      {
-        q: "Каква е максималната дълбочина на копаене?",
-        a: "Максималната дълбочина на копаене е приблизително 6 940 мм.",
-      },
-      {
-        q: "Подходящ ли е за тежка строителна работа?",
-        a: "Да, благодарение на високото работно тегло, стабилното верижно шаси и мощната хидравлична система CASE CX250D е подходящ за тежки и продължителни строителни дейности.",
-      },
-    ],
-    leasing: leasingOffers(21900),
-  },
-  {
-    id: "linde-h30d",
-    title: "Дизелов кар H30D",
-    brand: "Linde",
-    category: "Кари",
-    subcategory: "Дизелови кари",
-    year: 2019,
-    hours: 5120,
-    weightT: 4.3,
-    powerHp: 45,
-    price: 18400,
-    location: "Пловдив",
-    condition: "Втора употреба",
-    image: dizelovMotokar,
-    tags: ["3 т", "Дуплекс мачта", "Странично изместване"],
-    description:
-      "Надежден дизелов кар с товароподемност 3 тона, обслужен и готов за работа. Подходящ за складови площадки и открити терени.",
-  },
-  {
-    id: "telehandler-t4514",
-    title: "Телескопичен товарач T4514",
-    brand: "Manitou",
-    category: "Телескопични товарачи",
-    subcategory: "Телескопични товарачи",
-    year: 2022,
-    hours: 620,
-    weightT: 7.9,
-    powerHp: 100,
-    price: null,
-    location: "Варна",
-    condition: "Нова",
-    image: bautraxSl12,
-    tags: ["14 м", "4.5 т", "Лизинг"],
-    description:
-      "Телескопичен товарач с височина на повдигане 14 м и товароподемност 4.5 т. Отлична видимост и стабилност на неравен терен.",
-  },
-  {
-    id: "crawler-excavator-220",
-    title: "Верижен багер 220",
-    brand: "Komatsu",
-    model: "PC220-8",
-    catNo: "BTX22018",
-    category: "Багери",
-    subcategory: "Верижни багери",
-    year: 2018,
-    hours: 7830,
-    weightT: 21.5,
-    powerHp: 165,
-    price: 96500,
-    location: "Бургас",
-    condition: "Втора употреба",
-    image: caseCx250d,
-    tags: ["21 т", "Бърза връзка", "Климатик"],
-    description:
-      "Тежък верижен багер за инфраструктурни проекти и кариери. Пълна сервизна история, нови вериги и хидравличен чук по избор. Машината е обслужена в оторизиран сервиз, с подменени филтри и масла, и е готова за незабавна работа.",
-    specs: [
-      { label: "Марка", value: "KOMATSU" },
-      { label: "Модел", value: "PC220-8" },
-      { label: "Година", value: "2018" },
-      { label: "Моточасове", value: "7830" },
-      { label: "Работно тегло", value: "21500.00 КГ." },
-      { label: "Двигател", value: "KOMATSU SAA6D107E-1" },
-      { label: "Мощност", value: "165 К.С. / 123 KW" },
-      { label: "Обем на двигателя", value: "6690 CM³" },
-      { label: "Гориво", value: "ДИЗЕЛ" },
-      { label: "Емисионен клас", value: "STAGE IIIB" },
-      { label: "Обем на кофа", value: "1.05 M³" },
-      { label: "Ширина на кофа", value: "1050 MM" },
-      { label: "Дълбочина на копаене", value: "6620 MM" },
-      { label: "Височина на копаене", value: "9880 MM" },
-      { label: "Радиус на копаене", value: "9875 MM" },
-      { label: "Изкопна сила (кофа)", value: "138 KN" },
-      { label: "Дължина на стрела", value: "5700 MM" },
-      { label: "Дължина на ръкохватка", value: "2925 MM" },
-      { label: "Ширина на вериги", value: "600 MM" },
-      { label: "Тип вериги", value: "СТОМАНЕНИ" },
-      { label: "Състояние на вериги", value: "90%" },
-      { label: "Скорост на движение", value: "5.5 КМ/Ч" },
-      { label: "Хидравлична линия за чук", value: "ДА" },
-      { label: "Бърза връзка", value: "ДА" },
-      { label: "Климатик", value: "ДА" },
-      { label: "Обем на резервоара", value: "400 Л" },
-      { label: "Габарити (Д×Ш×В)", value: "9425 × 2800 × 3040 MM" },
-      { label: "Транспортно тегло", value: "21500 КГ" },
-      { label: "Сервизна история", value: "ПЪЛНА" },
-      { label: "Бюджет", value: "СРЕДЕН" },
-    ],
-    equipment: [
-      "Централна смазваща система",
-      "Камера за заден ход",
-      "LED работно осветление",
-      "Отопление и климатик в кабината",
-      "Пневматична седалка",
-      "Защитна решетка на кабината (FOPS)",
-      "Хидравлична линия за чук и ножица",
-      "Комплект от 2 кофи",
-    ],
-    leasing: leasingOffers(96500),
-  },
-  {
-    id: "wheel-loader-s241",
-    title: "Челен товарач S241",
-    brand: "Kubota",
-    category: "Челни товарачи",
-    subcategory: "Челни товарачи",
-    year: 2020,
-    hours: 2310,
-    weightT: 5.2,
-    powerHp: 74,
-    price: 43800,
-    location: "Стара Загора",
-    condition: "Втора употреба",
-    image: xcmgXc7Sr08,
-    tags: ["1.0 m³", "4x4", "Джойстик"],
-    description:
-      "Компактен челен товарач с кофа 1.0 m³. Икономичен разход и лесна поддръжка за общински и строителни дейности.",
-  },
-  {
-    id: "bobcat-t590",
-    title: "Верижен мини товарач T590",
-    brand: "Bobcat",
-    model: "T590",
-    catNo: "BCT59019",
-    category: "Челни товарачи",
-    subcategory: "Мини челни товарачи",
-    year: 2019,
-    hours: 1181,
-    weightT: 3.55,
-    powerHp: 66,
-    price: 68500,
-    location: "София",
-    condition: "Втора употреба",
-    image: lonkingCdm312t,
-    tags: ["Верижен", "970 кг", "Хидравлика"],
-    description:
-      "Bobcat T590 е изключително здрав и надежден верижен мини товарач, създаден за сериозна работа в строителството, земекопните дейности и индустрията. Машината комбинира компактни размери с висока мощност и стабилност, което я прави идеална за работа в тесни пространства и тежки терени. С ниски моточасове и допълнителна хидравлика, този модел е напълно подготвен за работа с различни прикачни устройства. Включените кофа и вилици осигуряват отлична гъвкавост и ефективност при всякакви задачи. Bobcat T590 е доказано решение за всеки, който търси производителност, издръжливост и ниски разходи за поддръжка. Машината е готова за работа веднага.",
-    specs: [
-      { label: "Марка", value: "BOBCAT" },
-      { label: "Модел", value: "T590" },
-      { label: "Година", value: "2019" },
-      { label: "Моточасове", value: "1181" },
-      { label: "Работно тегло", value: "3550 КГ" },
-      { label: "Мощност", value: "66 К.С." },
-      { label: "Товароподемност", value: "970 КГ" },
-      { label: "Височина на повдигане", value: "3000 MM" },
-      { label: "Височина на разтоварване", value: "2310 MM" },
-      { label: "Хидравлика", value: "ДА (ДОПЪЛНИТЕЛНА ЛИНИЯ)" },
-      { label: "Максимална скорост", value: "12 КМ/Ч" },
-      { label: "Тип движение", value: "ВЕРИЖЕН" },
-      { label: "Състояние", value: "ВТОРА УПОТРЕБА" },
-      { label: "Гаранция", value: "ПО ДОГОВАРЯНЕ" },
-    ],
-    equipment: [
-      "Кофа за общи строителни дейности",
-      "Вилици за палети",
-      "Допълнителна хидравлична линия",
-      "Затворена кабина с отопление",
-      "Радиална схема на повдигане",
-      "Бърза връзка за прикачни устройства",
-    ],
-    leasing: leasingOffers(68500),
-  },
-  {
-    id: "mini-excavator-em10-b",
-    title: "Мини багер EM10 Plus",
-    brand: "Eurocomach",
-    category: "Багери",
-    subcategory: "Мини багери",
-    year: 2023,
-    hours: 180,
-    weightT: 1.3,
-    powerHp: 15,
-    price: 26400,
-    location: "София",
-    condition: "Нова",
-    image: bautraxSpc30,
-    tags: ["Нова", "Гаранция 24 м", "Лизинг"],
-    description:
-      "Нов мини багер с разширена хидравлика и удължена стрела. Доставка от склад с пълна гаранция.",
-  },
-  {
-    id: "mini-excavator-zoomlion-ze26gu",
-    title: "Мини багер ZE26GU",
-    brand: "Zoomlion",
-    model: "ZE26GU",
-    catNo: "BTXZLG01",
-    category: "Багери",
-    subcategory: "Мини багери",
-    year: 2024,
-    hours: 0,
-    weightT: 2.6,
-    powerHp: 20,
-    price: 32900,
-    originalPrice: 35900,
-    location: "София",
-    condition: "Нова",
-    image: zoomlionMiniExcavator,
-    tags: ["Нова", "Гаранция 36 м", "Лизинг"],
-    description:
-      "Zoomlion ZE26GU е нов мини багер с работно тегло 2.6 т и двигател 20 к.с. Компактен, икономичен и лесен за транспорт, подходящ за строителство, озеленяване, канали и земekопни работи в тесни пространства. Доставка от склад с пълна гаранция и възможност за лизинг.",
-    specs: [
-      { label: "Марка", value: "Zoomlion" },
-      { label: "Модел", value: "ZE26GU" },
-      { label: "Година", value: "2024" },
-      { label: "Моточасове", value: "0" },
-      { label: "Работно тегло", value: "2 600 кг" },
-      { label: "Мощност", value: "20 к.с. / 14.7 kW" },
-      { label: "Двигател", value: "Kubota D1105" },
-      { label: "Гориво", value: "Дизел" },
-      { label: "Обем на кофа", value: "0.08 m³" },
-      { label: "Дълбочина на копаене", value: "2 650 мм" },
-      { label: "Височина на разтоварване", value: "2 800 мм" },
-      { label: "Радиус на завиване", value: "1 350 мм" },
-      { label: "Ширина", value: "1 500 мм" },
-      { label: "Тип вериги", value: "Гумени" },
-      { label: "Кабина", value: "Отворена със сгъваема ROPS" },
-      { label: "Хидравлика", value: "Двойна линия за прикачен инвентар" },
-      { label: "Макс. скорост", value: "3.5 км/ч" },
-      { label: "Състояние", value: "Нова" },
-    ],
-    equipment: [
-      "Кофа 300 мм",
-      "Кофа 600 мм",
-      "Хидравличен палец",
-      "Гумени вериги",
-      "Бърза връзка",
-      "Сервизна книжка",
-    ],
-    leasing: leasingOffers(32900),
-  },
-  {
-    id: "jcb-3cx",
-    title: "Комбиниран багер 3CX",
-    brand: "JCB",
-    model: "3CX",
-    catNo: "JCB3CX21",
-    category: "Багери",
-    subcategory: "Комбинирани багери",
-    year: 2021,
-    hours: 2840,
-    weightT: 8.0,
-    powerHp: 109,
-    price: 67200,
-    location: "Плевен",
-    condition: "Втора употреба",
-    image: bautraxBlx90,
-    tags: ["Комбиниран", "4x4", "Кофа и багер"],
-    description:
-      "JCB 3CX е един от най-разпространените комбинирани багери в света, подходящ за строителство, пътни ремонти и комунални дейности. Машината разполага с челен товарач отпред и багерно оборудване отзад, което позволява копаене, товарене, подравняване и транспортиране на материали с една машина. С мощен двигател, 4x4 задвижване и просторна кабина, този модел е готов за интензивна работа на обект. Ниските моточасове и редовното сервизно обслужване го правят надежден избор за всяка строителна фирма.",
-    leasing: leasingOffers(67200),
-  },
-];
-
-export function findMachine(id: string) {
-  return machines.find((m) => m.id === id);
+export function formatPrice(price: number | null | undefined): string {
+  if (price === null || price === undefined) return "По договаряне";
+  return `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(price)} €`;
 }
 
-export function formatPrice(price: number | null) {
-  return price === null
-    ? "Цена при запитване"
-    : new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(price) + " €";
+// ---- DB row mapping ----
+// Shape of a row coming back from the `machines` table (snake_case, jsonb parsed).
+export type MachineRow = {
+  id: string;
+  title: string;
+  brand: string;
+  model: string | null;
+  cat_no: string | null;
+  category: string;
+  subcategory: string | null;
+  year: number | null;
+  hours: number | null;
+  weight_t: number | null;
+  power_hp: number | null;
+  price: number | null;
+  original_price: number | null;
+  location: string;
+  condition: string;
+  image: string;
+  images: string[] | null;
+  tags: string[] | null;
+  description: string | null;
+  specs: { label: string; value: string }[] | null;
+  equipment: string[] | null;
+  description_blocks: DescriptionBlock[] | null;
+  faq: { q: string; a: string }[] | null;
+  long_description: string[] | null;
+  basic_description: string[] | null;
+  featured: boolean | null;
+  status: string | null;
+};
+
+export function rowToMachine(row: MachineRow): Machine {
+  const m: Machine = {
+    id: row.id,
+    title: row.title,
+    brand: row.brand,
+    category: row.category,
+    year: row.year ?? 0,
+    hours: row.hours ?? 0,
+    weightT: Number(row.weight_t ?? 0),
+    powerHp: Number(row.power_hp ?? 0),
+    price: row.price,
+    location: row.location,
+    condition: (row.condition === "Нова" ? "Нова" : "Втора употреба") as Machine["condition"],
+    image: row.image,
+    tags: row.tags ?? [],
+    description: row.description ?? "",
+    featured: row.featured ?? false,
+  };
+  if (row.subcategory) m.subcategory = row.subcategory;
+  if (row.model) m.model = row.model;
+  if (row.cat_no) m.catNo = row.cat_no;
+  if (row.original_price != null) m.originalPrice = row.original_price;
+  if (row.images) m.images = row.images;
+  if (row.specs) m.specs = row.specs;
+  if (row.equipment) m.equipment = row.equipment;
+  if (row.description_blocks) m.descriptionBlocks = row.description_blocks;
+  if (row.faq) m.faq = row.faq;
+  if (row.long_description) m.longDescription = row.long_description;
+  if (row.basic_description) m.basicDescription = row.basic_description;
+  return m;
 }
+
+// ---- Query options (RPC over Supabase via server functions) ----
+import { getMachines, getMachine } from "./machines.functions";
+
+export const machinesListQuery = queryOptions({
+  queryKey: ["machines"] as const,
+  queryFn: () => getMachines(),
+});
+
+export const machineQuery = (id: string) =>
+  queryOptions({
+    queryKey: ["machines", id] as const,
+    queryFn: () => getMachine({ id }),
+  });
