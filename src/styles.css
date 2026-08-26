@@ -63,6 +63,8 @@
   --color-ink-foreground: var(--ink-foreground);
   --color-signal: var(--signal);
   --color-signal-foreground: var(--signal-foreground);
+  --color-signal-dark: var(--signal-dark);
+
   --color-surface: var(--surface);
   --color-badge-new: var(--badge-new);
   --color-badge-new-foreground: var(--badge-new-foreground);
