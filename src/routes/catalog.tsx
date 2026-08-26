@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -7,7 +8,7 @@ import { QuickSearch } from "@/components/site/QuickSearch";
 import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
 import { MachineCard } from "@/components/site/MachineCard";
 import { Slider } from "@/components/ui/slider";
-import { categories, machines } from "@/lib/machines";
+import { categories, machinesListQuery } from "@/lib/machines";
 
 type CatalogSearch = { q: string };
 
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/catalog")({
   validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
     q: typeof search["q"] === "string" ? (search["q"] as string) : "",
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(machinesListQuery),
   head: () => ({
     meta: [
       { title: "Каталог машини — багери, кари, товарачи | Bauportal" },
@@ -34,6 +36,7 @@ export const Route = createFileRoute("/catalog")({
 
 function Catalog() {
   const { q } = Route.useSearch();
+  const machines = useSuspenseQuery(machinesListQuery).data;
   const [category, setCategory] = useState<string>("Всички");
   const [subcategory, setSubcategory] = useState<string>("Всички");
   const [brand, setBrand] = useState<string>("Всички");

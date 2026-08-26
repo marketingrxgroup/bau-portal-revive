@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Phone, Mail, Check, CreditCard, ChevronDown, ChevronLeft, ChevronRight, Home } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -6,11 +7,12 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { MachineCard } from "@/components/site/MachineCard";
 import { LeasingLogo } from "@/components/site/LeasingLogo";
 import { SpecGrid } from "@/components/site/SpecGrid";
-import { brandLogos, findMachine, formatPrice, machines } from "@/lib/machines";
+import { brandLogos, formatPrice, machineQuery, machinesListQuery } from "@/lib/machines";
 
 export const Route = createFileRoute("/machine/$id")({
-  loader: ({ params }) => {
-    const machine = findMachine(params.id);
+  loader: async ({ params, context }) => {
+    const machine = await context.queryClient.ensureQueryData(machineQuery(params.id));
+    await context.queryClient.ensureQueryData(machinesListQuery);
     if (!machine) throw notFound();
     return machine;
   },
@@ -32,6 +34,7 @@ export const Route = createFileRoute("/machine/$id")({
 
 function MachinePage() {
   const machine = Route.useLoaderData();
+  const machines = useSuspenseQuery(machinesListQuery).data;
   const [leasingOpen, setLeasingOpen] = useState(false);
   const [imageIdx, setImageIdx] = useState(0);
   const images = machine.images?.length
