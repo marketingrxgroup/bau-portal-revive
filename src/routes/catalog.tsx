@@ -130,9 +130,8 @@ function Catalog() {
         initialQuery={assistantQuery}
       />
 
-      <div className="relative overflow-hidden border-b border-ink/10 bg-gradient-to-b from-signal/[0.06] to-surface">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
-        <div className="mx-auto max-w-[1480px] px-4 py-7">
+      <div className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1480px] px-4 py-6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
               <nav className="text-xs text-foreground/70">
@@ -156,15 +155,15 @@ function Catalog() {
               )}
             </div>
 
-            <div className="flex shrink-0 items-stretch gap-0 overflow-hidden rounded-2xl bg-ink/[0.03] ring-1 ring-ink/10 lg:w-[440px]">
+            <div className="grid shrink-0 grid-cols-3 gap-3 lg:w-[420px]">
               {[
                 { v: `${results.length}`, l: "обяви в категорията" },
                 { v: "24ч", l: "отговор на запитване" },
                 { v: "БГ+ЕС", l: "доставка и внос" },
-              ].map((s, i) => (
-                <div key={s.l} className={`flex-1 px-4 py-3 ${i > 0 ? "border-l border-ink/10" : ""}`}>
+              ].map((s) => (
+                <div key={s.l} className="rounded-2xl border border-border bg-muted/50 px-4 py-3">
                   <div className="text-xl font-extrabold leading-none text-foreground">{s.v}</div>
-                  <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-foreground/65">
+                  <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-foreground/70">
                     {s.l}
                   </div>
                 </div>
@@ -172,7 +171,7 @@ function Catalog() {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-5">
             <QuickSearch
               onOpenAssistant={(query) => {
                 setAssistantQuery(query);
