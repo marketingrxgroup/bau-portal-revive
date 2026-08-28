@@ -57,9 +57,19 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
         <Link to="/machine/$id" params={{ id: machine.id }} className="min-h-[44px]">
           <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">{machine.brand}</p>
           <h3 className="text-sm font-bold leading-snug text-foreground hover:underline">{machine.title}</h3>
+          {machine.model && (
+            <p className="mt-0.5 text-[12px] font-extrabold tracking-tight text-foreground/85">{machine.model}</p>
+          )}
         </Link>
 
-        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-foreground/70">
+        <p className="mt-2 text-[11px] text-foreground/55">
+          Категория:{" "}
+          <span className="font-bold text-foreground underline underline-offset-2">
+            {machine.subcategory ?? machine.category}
+          </span>
+        </p>
+
+        <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-foreground/70">
           <li className="inline-flex items-center gap-1">
             <Calendar className="size-3" /> {machine.year}
           </li>
