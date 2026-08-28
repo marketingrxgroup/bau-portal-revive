@@ -63,6 +63,7 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
           Категория:{" "}
           <Link
             to="/catalog"
+            search={{ q: "" }}
             className="font-bold text-foreground underline underline-offset-2 transition-colors hover:text-signal"
           >
             {machine.subcategory ?? machine.category}
