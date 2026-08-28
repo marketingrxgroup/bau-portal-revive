@@ -220,7 +220,7 @@ export function HeroSlider() {
       <div className="mx-auto max-w-[1480px] px-4 pt-4 sm:pt-6">
         <div className="grid gap-3 lg:grid-cols-[1fr_400px]">
           {/* MAIN STAGE */}
-          <div className="group/main relative overflow-hidden rounded-2xl bg-ink aspect-[16/11] sm:aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[560px]">
+          <div className="group/main relative overflow-hidden rounded-2xl bg-ink aspect-[4/5] sm:aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[560px]">
             <img
               key={s.image}
               src={s.image}
