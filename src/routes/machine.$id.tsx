@@ -367,7 +367,7 @@ function MachinePage() {
             <section>
               <div className="mb-5 flex items-end justify-between border-b border-border pb-3">
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-signal">Още предложения</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/60">Още предложения</p>
                   <h2 className="mt-1 text-xl font-extrabold uppercase tracking-tight text-foreground">Подобни от категория</h2>
                 </div>
                 <Link
