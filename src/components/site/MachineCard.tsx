@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, GitCompare, Clock, Calendar, Weight } from "lucide-react";
+import { Heart, GitCompare, Clock, Calendar, Weight, Tag } from "lucide-react";
 import { formatPrice, type Machine } from "@/lib/machines";
 
 export function MachineCard({ machine, featured = false }: { machine: Machine; featured?: boolean }) {
@@ -57,9 +57,6 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
         <Link to="/machine/$id" params={{ id: machine.id }} className="min-h-[44px]">
           <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">{machine.brand}</p>
           <h3 className="text-sm font-bold leading-snug text-foreground hover:underline">{machine.title}</h3>
-          {machine.model && (
-            <p className="mt-0.5 text-[12px] font-extrabold tracking-tight text-foreground/85">{machine.model}</p>
-          )}
         </Link>
 
         <p className="mt-2 text-[11px] text-foreground/55">
@@ -79,6 +76,11 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
           <li className="inline-flex items-center gap-1">
             <Weight className="size-3" /> {machine.weightT} т
           </li>
+          {machine.model && (
+            <li className="inline-flex items-center gap-1 font-bold text-foreground">
+              <Tag className="size-3" /> {machine.model}
+            </li>
+          )}
         </ul>
 
         <div className="mt-3 flex items-end justify-between gap-2 border-t border-border pt-3">
