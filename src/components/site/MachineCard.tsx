@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, GitCompare, Clock, Calendar, BadgeCheck, Weight } from "lucide-react";
+import { Heart, GitCompare, Clock, Calendar, Weight } from "lucide-react";
 import { formatPrice, type Machine } from "@/lib/machines";
 
 export function MachineCard({ machine, featured = false }: { machine: Machine; featured?: boolean }) {
@@ -85,9 +85,6 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
           </Link>
         </div>
 
-        <p className="mt-2 inline-flex items-center gap-1 text-[11px] text-foreground/70">
-          <BadgeCheck className="size-3.5 text-signal" /> Проверен дилър
-        </p>
       </div>
     </div>
   );
