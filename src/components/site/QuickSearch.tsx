@@ -129,7 +129,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
                 key={s}
                 type="button"
                 onClick={() => handleSubmit(s)}
-                className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-border text-foreground/70 hover:border-ink hover:text-foreground"}`}
+                className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-ink/15 bg-surface text-foreground/80 hover:border-signal hover:bg-signal hover:text-signal-foreground"}`}
               >
                 {s}
               </button>
