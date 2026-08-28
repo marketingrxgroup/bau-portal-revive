@@ -68,7 +68,7 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
 
         <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-foreground/70">
           {machine.model && (
-            <li className="inline-flex items-center gap-1 font-bold text-foreground">
+            <li className="inline-flex items-center gap-1 text-foreground/70">
               <Tag className="size-3" /> {machine.model}
             </li>
           )}
