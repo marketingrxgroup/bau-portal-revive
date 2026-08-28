@@ -159,6 +159,23 @@ function Catalog() {
               <h1 className="mt-1 text-xl font-extrabold text-foreground sm:text-2xl">
                 {category === "Всички" ? "Налична строителна техника и машини" : `Продажба на ${category.toLowerCase()}`}
               </h1>
+              {(() => {
+                const key = category === "Всички" ? "Налична строителна техника и машини" : category;
+                const desc = categoryDescriptions[key];
+                return desc ? (
+                  <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-foreground/70">
+                    {category === "Всички" ? (
+                      <>
+                        Открийте <strong className="font-semibold text-foreground">нови и употребявани машини</strong>, налични за бърза
+                        продажа и доставка — сервизирани и готови за работа. Подбрани предложения за строителството, индустрията и
+                        професионалната дейност, включително възможност за внос по поръчка.
+                      </>
+                    ) : (
+                      desc
+                    )}
+                  </p>
+                ) : null;
+              })()}
               {q && (
                 <p className="mt-1 text-sm text-foreground/70">
                   Резултати за: <span className="bg-signal px-1.5 font-semibold text-signal-foreground">{q}</span>
