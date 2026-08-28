@@ -162,7 +162,7 @@ function Catalog() {
               const key = category === "Всички" ? "Налична строителна техника и машини" : category;
               const desc = categoryDescriptions[key];
               return desc ? (
-                <p className="mt-1.5 max-w-none text-sm leading-relaxed text-foreground/70">
+                <p className="mt-1.5 max-w-none text-base leading-relaxed" style={{ color: "#3f3d3d" }}>
                   {category === "Всички" ? (
                     <>
                       Открийте <strong className="font-semibold text-foreground">нови и употребявани машини</strong>, налични за бърза
