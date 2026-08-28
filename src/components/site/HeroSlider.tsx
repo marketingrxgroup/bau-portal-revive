@@ -290,13 +290,13 @@ export function HeroSlider() {
           </div>
 
           {/* SIDE PROMO CARDS */}
-          <div ref={railRef} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          <div ref={railRef} className="grid grid-cols-2 gap-3 lg:grid-cols-1">
             {promos.map((p) => (
               <Link
                 key={p.title}
                 to="/catalog"
                 search={{ q: p.q }}
-                className="group relative flex aspect-[16/10] flex-col overflow-hidden rounded-2xl bg-ink lg:aspect-auto lg:h-full"
+                className="group relative flex aspect-[4/5] flex-col overflow-hidden rounded-2xl bg-ink sm:aspect-[16/10] lg:aspect-auto lg:h-full"
               >
                 <img
                   src={p.image}
@@ -305,11 +305,11 @@ export function HeroSlider() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/20 to-transparent" />
-                <div className="relative z-[2] p-5">
-                  <p className="text-shadow-soft text-base font-extrabold uppercase leading-tight tracking-tight text-ink-foreground sm:text-lg">
+                <div className="relative z-[2] p-3 sm:p-5">
+                  <p className="text-shadow-soft text-[11px] font-extrabold uppercase leading-tight tracking-tight text-ink-foreground sm:text-lg">
                     {p.title}
                   </p>
-                  <p className="text-shadow-soft mt-1 text-[12px] text-ink-foreground/80">{p.text}</p>
+                  <p className="text-shadow-soft mt-1 text-[10px] leading-snug text-ink-foreground/80 sm:text-[12px]">{p.text}</p>
                 </div>
                 <span className="absolute bottom-4 right-4 z-[2] grid size-9 place-items-center rounded-full bg-signal text-ink opacity-0 transition-opacity group-hover:opacity-100">
                   <ArrowRight className="size-4" />
