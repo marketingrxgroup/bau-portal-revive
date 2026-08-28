@@ -69,7 +69,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   };
 
   return (
-    <div className={`rounded-2xl p-1.5 transition-shadow ${isGlass ? "border border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "bg-surface ring-1 ring-ink/10 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.2),0_2px_8px_-4px_rgba(0,0,0,0.08)] focus-within:ring-signal/50 focus-within:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.26),0_2px_8px_-4px_rgba(0,0,0,0.1)]"}`}>
+    <div className={`rounded-2xl p-1.5 ${isGlass ? "border border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "border border-border bg-surface shadow-sm"}`}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,7 +77,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         }}
         className="flex flex-col gap-2 sm:flex-row sm:items-center"
       >
-        <div className={`relative flex flex-1 items-center gap-3 px-4 ${isGlass ? "rounded-xl bg-white/15 ring-1 ring-white/25" : ""}`}>
+        <div className={`relative flex flex-1 items-center gap-3 px-4 ${isGlass ? "rounded-xl bg-white/15 ring-1 ring-white/25" : "rounded-xl bg-muted/60"}`}>
           <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/50"}`} />
           <div className="relative flex-1">
             <input
@@ -99,10 +99,9 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             )}
           </div>
         </div>
-        <div className={`hidden h-8 w-px shrink-0 sm:block ${isGlass ? "bg-white/20" : "bg-ink/10"}`} />
         <button
           type="submit"
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-all active:scale-[0.98] ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground shadow-[0_6px_16px_-6px_rgba(0,0,0,0.45)] hover:bg-ink/90"}`}
+          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-all active:scale-[0.98] ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground hover:bg-ink/90"}`}
         >
           <Sparkles className={`size-4 ${isGlass ? "text-signal-foreground" : "text-signal"}`} /> AI Асистент
         </button>
