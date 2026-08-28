@@ -69,7 +69,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   };
 
   return (
-    <div className={`overflow-hidden rounded-2xl border p-3 sm:p-4 ${isGlass ? "border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "border-border bg-surface shadow-[0_24px_60px_-45px_rgba(0,0,0,0.6)]"}`}>
+    <div className={`overflow-hidden rounded-2xl border p-3 sm:p-4 ${isGlass ? "border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "border-ink/15 bg-surface shadow-[0_18px_50px_-40px_rgba(0,0,0,0.45)] ring-1 ring-ink/5"}`}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,33 +77,33 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         }}
         className="flex flex-col gap-2 sm:flex-row"
       >
-        <div className={`relative flex flex-1 items-center gap-3 rounded-xl px-4 ${isGlass ? "bg-white/15 ring-1 ring-white/25" : "bg-muted/60"}`}>
-          <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/60"}`} />
+        <div className={`relative flex flex-1 items-center gap-3 rounded-xl px-4 ring-1 transition-shadow ${isGlass ? "bg-white/15 ring-white/25" : "bg-muted/40 ring-signal/40 focus-within:ring-signal"}`}>
+          <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/70"}`} />
           <div className="relative flex-1">
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              className={`h-12 w-full bg-transparent text-sm font-medium outline-none ${isGlass ? "text-white placeholder:text-white/70" : "text-foreground"}`}
+              className={`h-12 w-full bg-transparent text-sm font-medium outline-none ${isGlass ? "text-white placeholder:text-white/70" : "text-foreground placeholder:text-foreground/40"}`}
               aria-label="Търсене на машина"
             />
             {value === "" && (
               <span
                 aria-hidden
-                className={`pointer-events-none absolute inset-y-0 left-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/60"}`}
+                className={`pointer-events-none absolute inset-y-0 left-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/45"}`}
               >
                 {typed}
-                <span className={`ml-0.5 inline-block h-3.5 w-px animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/50"}`} />
+                <span className={`ml-0.5 inline-block h-3.5 w-px animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/40"}`} />
               </span>
             )}
           </div>
         </div>
         <button
           type="submit"
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground hover:bg-ink/90"}`}
+          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-signal text-signal-foreground ring-1 ring-signal-dark hover:bg-signal-dark hover:text-signal-foreground"}`}
         >
-          <Sparkles className={`size-4 ${isGlass ? "text-signal-foreground" : "text-signal"}`} /> AI Асистент
+          <Sparkles className="size-4 text-signal-foreground" /> AI Асистент
         </button>
       </form>
 
