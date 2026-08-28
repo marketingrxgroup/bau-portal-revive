@@ -107,7 +107,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         </button>
       </form>
 
-      <div className="mt-3 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+      <div className="mt-3 flex flex-col items-start gap-2 px-3 sm:flex-row sm:items-center">
         <span className={`inline-flex shrink-0 items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest ${isGlass ? "text-white/70" : "text-foreground/70"}`}>
           <SlidersHorizontal className="size-3.5" /> Популярни
         </span>
