@@ -40,7 +40,7 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
         <button
           type="button"
           aria-label="Сравни"
-          className="grid size-8 place-items-center rounded-full border border-transparent bg-surface/90 text-foreground/60 backdrop-blur transition-colors hover:border-ink hover:bg-signal hover:text-ink"
+          className="grid size-8 place-items-center rounded-full bg-surface/90 text-foreground/60 backdrop-blur transition-colors hover:bg-signal hover:text-ink"
         >
           <GitCompare className="size-4" />
         </button>
