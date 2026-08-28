@@ -74,7 +74,7 @@ export function SiteHeader() {
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Какво търсиш днес?"
                 aria-label="Търсене на машини"
-                className="h-11 w-full rounded-full border-2 border-signal bg-surface pl-5 pr-12 text-[14px] text-foreground outline-none transition-colors placeholder:text-foreground/45 focus:border-signal-dark"
+                className="h-11 w-full rounded-full border-2 border-signal bg-surface pl-5 pr-12 text-[14px] text-foreground outline-none transition-colors placeholder:text-foreground/45 focus:border-ink"
               />
               <button
                 type="submit"
