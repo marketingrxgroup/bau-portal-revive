@@ -56,7 +56,7 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
       <div className="flex flex-1 flex-col p-3">
         <Link to="/machine/$id" params={{ id: machine.id }} className="min-h-[44px]">
           <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">{machine.brand}</p>
-          <h3 className="text-sm font-bold leading-snug text-foreground hover:underline">{machine.title}</h3>
+          <h3 className="text-base font-bold leading-snug text-foreground hover:underline">{machine.title}</h3>
         </Link>
 
         <p className="mt-2 text-[11px] text-foreground/55">
