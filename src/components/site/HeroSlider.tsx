@@ -240,7 +240,7 @@ export function HeroSlider() {
 
             {/* spec bar + dots bottom */}
             <div className="absolute inset-x-0 bottom-0 z-[11] flex flex-col items-center gap-3 p-4 sm:p-6">
-              <div className="grid w-full max-w-[880px] grid-cols-2 gap-x-2 gap-y-2 rounded-2xl border border-white/25 bg-ink/45 px-3 py-3 backdrop-blur-xl sm:flex sm:flex-nowrap sm:items-center sm:justify-center sm:gap-0 sm:divide-x sm:divide-white/25 sm:px-2">
+              <div className="hidden w-full max-w-[880px] grid-cols-2 gap-x-2 gap-y-2 rounded-2xl border border-white/25 bg-ink/45 px-3 py-3 backdrop-blur-xl sm:flex sm:flex-nowrap sm:items-center sm:justify-center sm:gap-0 sm:divide-x sm:divide-white/25 sm:px-2">
                 {specsOf(s).map(([k, v]) => {
                   const Icon = specIcon(k);
                   return (
