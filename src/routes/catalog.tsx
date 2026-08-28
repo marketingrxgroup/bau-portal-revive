@@ -155,17 +155,20 @@ function Catalog() {
               )}
             </div>
 
-            <div className="grid shrink-0 grid-cols-3 gap-3 lg:w-[420px]">
+            <div className="flex shrink-0 items-stretch divide-x divide-border rounded-full border border-border bg-surface py-2 pl-2 pr-5 shadow-sm">
               {[
-                { v: `${results.length}`, l: "обяви в категорията" },
-                { v: "24ч", l: "отговор на запитване" },
-                { v: "БГ+ЕС", l: "доставка и внос" },
+                { v: `${results.length}`, l: "обяви в категорията", icon: Layers },
+                { v: "24ч", l: "отговор на запитване", icon: Clock },
+                { v: "БГ + ЕС", l: "доставка и внос", icon: Truck },
               ].map((s) => (
-                <div key={s.l} className="rounded-2xl border border-border bg-muted/50 px-4 py-3">
-                  <div className="text-xl font-extrabold leading-none text-foreground">{s.v}</div>
-                  <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-foreground/70">
-                    {s.l}
-                  </div>
+                <div key={s.l} className="flex items-center gap-3 px-4">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-signal/15 text-signal-dark">
+                    <s.icon className="h-4 w-4" />
+                  </span>
+                  <span className="leading-tight">
+                    <span className="block text-base font-extrabold text-foreground">{s.v}</span>
+                    <span className="block text-[11px] font-medium text-foreground/60">{s.l}</span>
+                  </span>
                 </div>
               ))}
             </div>
