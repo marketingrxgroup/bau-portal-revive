@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, GitCompare, Clock, Calendar, BadgeCheck, Weight } from "lucide-react";
+import { Heart, GitCompare, Clock, Calendar, Weight } from "lucide-react";
 import { formatPrice, type Machine } from "@/lib/machines";
 
 export function MachineCard({ machine, featured = false }: { machine: Machine; featured?: boolean }) {
