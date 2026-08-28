@@ -57,9 +57,6 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
         <Link to="/machine/$id" params={{ id: machine.id }} className="min-h-[44px]">
           <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">{machine.brand}</p>
           <h3 className="text-sm font-bold leading-snug text-foreground hover:underline">{machine.title}</h3>
-          {machine.model && (
-            <p className="mt-0.5 text-[12px] font-extrabold tracking-tight text-foreground/85">{machine.model}</p>
-          )}
         </Link>
 
         <p className="mt-2 text-[11px] text-foreground/55">
