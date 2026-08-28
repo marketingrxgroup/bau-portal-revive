@@ -148,58 +148,38 @@ function Catalog() {
 
       <div className="border-b border-border bg-surface">
         <div className="mx-auto max-w-[1480px] px-4 py-3">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="min-w-0">
-              <nav className="text-xs text-foreground/70">
-                <Link to="/" className="hover:text-foreground">
-                  Начало
-                </Link>{" "}
-                / <span className="text-foreground">{category === "Всички" ? "Налични машини" : category}</span>
-              </nav>
-              <h1 className="mt-1 text-xl font-extrabold text-foreground sm:text-2xl">
-                {category === "Всички" ? "Налична строителна техника и машини" : `Продажба на ${category.toLowerCase()}`}
-              </h1>
-              {(() => {
-                const key = category === "Всички" ? "Налична строителна техника и машини" : category;
-                const desc = categoryDescriptions[key];
-                return desc ? (
-                  <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-foreground/70">
-                    {category === "Всички" ? (
-                      <>
-                        Открийте <strong className="font-semibold text-foreground">нови и употребявани машини</strong>, налични за бърза
-                        продажа и доставка — сервизирани и готови за работа. Подбрани предложения за строителството, индустрията и
-                        професионалната дейност, включително възможност за внос по поръчка.
-                      </>
-                    ) : (
-                      desc
-                    )}
-                  </p>
-                ) : null;
-              })()}
-              {q && (
-                <p className="mt-1 text-sm text-foreground/70">
-                  Резултати за: <span className="bg-signal px-1.5 font-semibold text-signal-foreground">{q}</span>
+          <div className="min-w-0">
+            <nav className="text-xs text-foreground/70">
+              <Link to="/" className="hover:text-foreground">
+                Начало
+              </Link>{" "}
+              / <span className="text-foreground">{category === "Всички" ? "Налични машини" : category}</span>
+            </nav>
+            <h1 className="mt-1 text-xl font-extrabold text-foreground sm:text-2xl">
+              {category === "Всички" ? "Налична строителна техника и машини" : `Продажба на ${category.toLowerCase()}`}
+            </h1>
+            {(() => {
+              const key = category === "Всички" ? "Налична строителна техника и машини" : category;
+              const desc = categoryDescriptions[key];
+              return desc ? (
+                <p className="mt-1.5 max-w-none text-sm leading-relaxed text-foreground/70">
+                  {category === "Всички" ? (
+                    <>
+                      Открийте <strong className="font-semibold text-foreground">нови и употребявани машини</strong>, налични за бърза
+                      продажа и доставка — сервизирани и готови за работа. Подбрани предложения за строителството, индустрията и
+                      професионалната дейност, включително възможност за внос по поръчка.
+                    </>
+                  ) : (
+                    desc
+                  )}
                 </p>
-              )}
-            </div>
-
-            <div className="flex shrink-0 items-stretch divide-x divide-border rounded-full border border-border bg-surface py-1.5 pl-2 pr-4 shadow-sm">
-              {[
-                { v: `${results.length}`, l: "обяви", icon: Layers },
-                { v: "24ч", l: "отговор", icon: Clock },
-                { v: "БГ + ЕС", l: "доставка", icon: Truck },
-              ].map((s) => (
-                <div key={s.l} className="flex items-center gap-2.5 px-3">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-signal/15 text-signal-dark">
-                    <s.icon className="h-4 w-4" />
-                  </span>
-                  <span className="leading-tight">
-                    <span className="block text-sm font-extrabold text-foreground">{s.v}</span>
-                    <span className="block text-[11px] font-medium text-foreground/60">{s.l}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
+              ) : null;
+            })()}
+            {q && (
+              <p className="mt-1 text-sm text-foreground/70">
+                Резултати за: <span className="bg-signal px-1.5 font-semibold text-signal-foreground">{q}</span>
+              </p>
+            )}
           </div>
 
           <div className="mt-3">
