@@ -85,8 +85,7 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
 
         <div className="mt-3 flex items-end justify-between gap-2 border-t border-border pt-3">
           <div>
-            <span className="block text-[10px] uppercase tracking-widest text-foreground/60">Цена</span>
-            <span className="text-base font-extrabold tracking-tight text-foreground">{formatPrice(machine.price)}</span>
+            <span className="text-[18px] font-extrabold tracking-tight text-foreground">{formatPrice(machine.price)}</span>
           </div>
           <Link
             to="/machine/$id"
