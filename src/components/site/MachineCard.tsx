@@ -67,6 +67,11 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
         </p>
 
         <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-foreground/70">
+          {machine.model && (
+            <li className="inline-flex items-center gap-1 font-bold text-foreground">
+              <Tag className="size-3" /> {machine.model}
+            </li>
+          )}
           <li className="inline-flex items-center gap-1">
             <Calendar className="size-3" /> {machine.year}
           </li>
@@ -76,11 +81,6 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
           <li className="inline-flex items-center gap-1">
             <Weight className="size-3" /> {machine.weightT} т
           </li>
-          {machine.model && (
-            <li className="inline-flex items-center gap-1 font-bold text-foreground">
-              <Tag className="size-3" /> {machine.model}
-            </li>
-          )}
         </ul>
 
         <div className="mt-3 flex items-end justify-between gap-2 border-t border-border pt-3">
