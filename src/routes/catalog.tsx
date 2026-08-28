@@ -406,9 +406,24 @@ function Catalog() {
         <section>
           <div className="mb-4 rounded-xl border border-border bg-surface px-4 py-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-foreground">
-                {results.length} {results.length === 1 ? "обява" : "обяви"}
-              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-sm font-semibold text-foreground">
+                  {results.length} {results.length === 1 ? "обява" : "обяви"}
+                </p>
+                {chips.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    {chips.map((c) => (
+                      <button
+                        key={c.label}
+                        onClick={c.clear}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-semibold text-foreground/90 hover:bg-ink hover:text-ink-foreground"
+                      >
+                        {c.label} ✕
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 <label htmlFor="sort" className="text-[11px] font-bold uppercase tracking-widest text-foreground/70">
                   Подреди
@@ -426,20 +441,6 @@ function Catalog() {
                 </select>
               </div>
             </div>
-
-            {chips.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
-                {chips.map((c) => (
-                  <button
-                    key={c.label}
-                    onClick={c.clear}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-semibold text-foreground/90 hover:bg-ink hover:text-ink-foreground"
-                  >
-                    {c.label} ✕
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {subcategories.length > 0 && (
