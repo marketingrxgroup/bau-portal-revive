@@ -103,7 +103,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
           type="submit"
           className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground hover:bg-ink/90"}`}
         >
-          <Sparkles className="size-4 text-signal-foreground" /> AI Асистент
+          <Sparkles className={`size-4 ${isGlass ? "text-signal-foreground" : "text-signal"}`} /> AI Асистент
         </button>
       </form>
 
