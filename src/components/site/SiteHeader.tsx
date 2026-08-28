@@ -120,7 +120,7 @@ export function SiteHeader() {
         </div>
 
         {/* ROW 2 — main navigation */}
-        <div className="border-t border-border bg-secondary/45">
+        <div className="border-t border-b border-border bg-secondary/45">
           <div className="mx-auto flex h-[52px] max-w-[1480px] items-center justify-between gap-4 px-4">
             <nav className="hidden min-w-0 items-center divide-x divide-border lg:flex">
               {navItems.map((n) => {
