@@ -61,9 +61,12 @@ export function MachineCard({ machine, featured = false }: { machine: Machine; f
 
         <p className="mt-2 text-[11px] text-foreground/55">
           Категория:{" "}
-          <span className="font-bold text-foreground underline underline-offset-2">
+          <Link
+            to="/catalog"
+            className="font-bold text-foreground underline underline-offset-2 transition-colors hover:text-signal"
+          >
             {machine.subcategory ?? machine.category}
-          </span>
+          </Link>
         </p>
 
         <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-foreground/70">
