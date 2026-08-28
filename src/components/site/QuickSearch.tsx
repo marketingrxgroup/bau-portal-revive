@@ -69,7 +69,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   };
 
   return (
-    <div className={`overflow-hidden rounded-2xl border p-3 sm:p-4 ${isGlass ? "border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "border-ink/15 bg-surface shadow-[0_18px_50px_-40px_rgba(0,0,0,0.45)] ring-1 ring-ink/5"}`}>
+    <div className={`overflow-hidden rounded-2xl border p-3 sm:p-4 ${isGlass ? "border-white/25 bg-white/20 shadow-[0_24px_60px_-45px_rgba(0,0,0,0.7)] backdrop-blur-xl" : "border-ink/10 bg-surface shadow-[0_10px_40px_-24px_rgba(0,0,0,0.28),0_2px_8px_-4px_rgba(0,0,0,0.12)]"}`}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,8 +77,8 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         }}
         className="flex flex-col gap-2 sm:flex-row"
       >
-        <div className={`relative flex flex-1 items-center gap-3 rounded-xl px-4 ring-1 transition-shadow ${isGlass ? "bg-white/15 ring-white/25" : "bg-muted/40 ring-signal/40 focus-within:ring-signal"}`}>
-          <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/70"}`} />
+        <div className={`relative flex flex-1 items-center gap-3 rounded-xl px-4 ${isGlass ? "bg-white/15 ring-1 ring-white/25" : "bg-muted/40 ring-1 ring-ink/8 focus-within:ring-signal/60"}`}>
+          <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/60"}`} />
           <div className="relative flex-1">
             <input
               value={value}
@@ -101,9 +101,9 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         </div>
         <button
           type="submit"
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-signal text-signal-foreground ring-1 ring-signal-dark hover:bg-signal-dark hover:text-signal-foreground"}`}
+          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-signal/15 text-signal-dark ring-1 ring-signal/40 hover:bg-signal/25 hover:ring-signal/60"}`}
         >
-          <Sparkles className="size-4 text-signal-foreground" /> AI Асистент
+          <Sparkles className="size-4" /> AI Асистент
         </button>
       </form>
 
@@ -129,7 +129,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
                 key={s}
                 type="button"
                 onClick={() => handleSubmit(s)}
-                className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-ink/15 bg-surface text-foreground/80 hover:border-signal hover:bg-signal hover:text-signal-foreground"}`}
+                className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-ink/10 bg-ink/[0.02] text-foreground/75 hover:border-signal/50 hover:bg-signal/15 hover:text-signal-dark"}`}
               >
                 {s}
               </button>
