@@ -36,6 +36,7 @@ export function SiteHeader() {
   const [q, setQ] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const { openAssistant } = useAssistant();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
