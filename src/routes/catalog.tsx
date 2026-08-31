@@ -65,7 +65,6 @@ function Catalog() {
   const [sort, setSort] = useState<string>("new");
   const [catQuery, setCatQuery] = useState("");
   const { openAssistant } = useAssistant();
-  const [catQuery, setCatQuery] = useState("");
   const [mobileSheet, setMobileSheet] = useState<"categories" | "brands" | "filters" | null>(null);
 
   const priceBounds = useMemo(() => {
