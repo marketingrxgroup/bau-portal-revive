@@ -37,6 +37,14 @@ function MachinePage() {
   const machines = useSuspenseQuery(machinesListQuery).data;
   const [leasingOpen, setLeasingOpen] = useState(false);
   const [imageIdx, setImageIdx] = useState(0);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const brandScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollBy = (ref: React.RefObject<HTMLDivElement | null>, dir: 1 | -1) => {
+    const el = ref.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.max(el.clientWidth * 0.8, 240), behavior: "smooth" });
+  };
   const images = machine.images?.length
     ? machine.images
     : Array.from({ length: 4 }, () => machine.image);
