@@ -376,7 +376,7 @@ function MachinePage() {
               <div className="mb-5 flex items-end justify-between gap-2 border-b border-border pb-3">
                 <div className="min-w-0">
                   <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/60">Още предложения</p>
-                  <h2 className="mt-1 text-lg font-extrabold uppercase tracking-tight text-foreground sm:text-xl">Подобни от категория</h2>
+                  <h2 className="mt-1 whitespace-nowrap text-base font-extrabold uppercase tracking-tight text-foreground sm:text-xl">Подобни от категория</h2>
                 </div>
                 <Link
                   to="/catalog"
@@ -399,7 +399,7 @@ function MachinePage() {
               <div className="mb-5 flex items-end justify-between gap-2 border-b border-border pb-3">
                 <div className="min-w-0">
                   <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/60">Същата марка</p>
-                  <h2 className="mt-1 text-lg font-extrabold uppercase tracking-tight text-foreground sm:text-xl">Подобни от марка</h2>
+                  <h2 className="mt-1 whitespace-nowrap text-base font-extrabold uppercase tracking-tight text-foreground sm:text-xl">Подобни от марка</h2>
                 </div>
                 <Link
                   to="/catalog"
