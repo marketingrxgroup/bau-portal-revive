@@ -103,7 +103,7 @@ function MachinePage() {
       </div>
 
       <div className="mx-auto max-w-[1480px] px-4 pb-8">
-        <div className="mt-3 grid gap-6 lg:mt-6 lg:grid-cols-[1fr_1.5fr] lg:gap-8 items-start">
+        <div className="mt-2 grid gap-2 lg:mt-6 lg:grid-cols-[1fr_1.5fr] lg:gap-8 items-start">
           {/* MOBILE TITLE — above the image on small screens */}
           <div className="lg:hidden">
             <p className="label-caps text-foreground/70">{machine.brand}</p>
