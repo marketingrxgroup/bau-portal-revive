@@ -103,11 +103,11 @@ function MachinePage() {
       </div>
 
       <div className="mx-auto max-w-[1480px] px-4 pb-8">
-        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.5fr] items-start">
+        <div className="mt-3 grid gap-6 lg:mt-6 lg:grid-cols-[1fr_1.5fr] lg:gap-8 items-start">
           {/* MOBILE TITLE — above the image on small screens */}
           <div className="lg:hidden">
             <p className="label-caps text-foreground/70">{machine.brand}</p>
-            <h1 className="mt-1 text-2xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+            <h1 className="mt-0.5 text-2xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
           </div>
 
           {/* LEFT COLUMN — sticky visual + hero stats */}
