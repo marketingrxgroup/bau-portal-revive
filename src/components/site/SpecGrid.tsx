@@ -26,14 +26,23 @@ export function SpecGrid({
         </span>
       </div>
       <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((row) => (
-          <div key={row.label} className="bg-surface px-3 py-2.5 transition-colors hover:bg-secondary">
-            <p className="text-[10px] font-bold uppercase leading-tight tracking-widest text-foreground/60">
-              {row.label}
-            </p>
-            <p className="text-sm font-extrabold leading-snug text-foreground">{row.value}</p>
-          </div>
-        ))}
+        {visible.map((row, i) => {
+          const isLastOdd =
+            i === visible.length - 1 && visible.length % 2 === 1;
+          return (
+            <div
+              key={row.label}
+              className={`bg-surface px-3 py-2.5 transition-colors hover:bg-secondary ${
+                isLastOdd ? "col-span-2 sm:col-span-2 lg:col-span-1" : ""
+              }`}
+            >
+              <p className="text-[10px] font-bold uppercase leading-tight tracking-widest text-foreground/60">
+                {row.label}
+              </p>
+              <p className="text-sm font-extrabold leading-snug text-foreground">{row.value}</p>
+            </div>
+          );
+        })}
       </div>
       {rows.length > limit && (
         <button
