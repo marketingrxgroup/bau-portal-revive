@@ -83,10 +83,10 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             {value === "" && (
               <span
                 aria-hidden
-                className={`pointer-events-none absolute inset-y-0 left-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/45"}`}
+                className={`pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/45"}`}
               >
                 {typed}
-                <span className={`ml-0.5 inline-block h-3.5 w-px animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/40"}`} />
+                <span className={`ml-0.5 inline-block h-3.5 w-px shrink-0 animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/40"}`} />
               </span>
             )}
           </div>
