@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, ArrowUpRight, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { QuickSearch } from "@/components/site/QuickSearch";
-import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
+import { useAssistant } from "@/lib/assistant-context";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { MachineCard } from "@/components/site/MachineCard";
 import { CategoryConstellation } from "@/components/site/CategoryConstellation";
