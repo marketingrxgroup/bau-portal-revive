@@ -182,8 +182,10 @@ function MachinePage() {
 
           {/* RIGHT COLUMN — scrollable content */}
           <div>
-            <p className="label-caps text-foreground/70">{machine.brand}</p>
-            <h1 className="mt-1 text-3xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+            <div className="hidden lg:block">
+              <p className="label-caps text-foreground/70">{machine.brand}</p>
+              <h1 className="mt-1 text-3xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+            </div>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">{machine.description}</p>
 
             <div className="mt-5 border border-border bg-surface p-5">
