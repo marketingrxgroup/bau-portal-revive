@@ -74,14 +74,14 @@ export function SiteHeader() {
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Какво търсиш днес?"
                 aria-label="Търсене на машини"
-                className="h-11 w-full rounded-full border-2 border-signal bg-surface pl-5 pr-12 text-[14px] text-foreground outline-none transition-colors placeholder:text-foreground/45 focus:border-ink"
+                className="h-11 w-full rounded-full border border-ink/80 bg-surface pl-5 pr-12 text-[14px] text-foreground outline-none transition-colors placeholder:text-foreground/45 focus:border-ink"
               />
               <button
                 type="submit"
                 aria-label="Търси"
                 className="absolute right-1.5 top-1.5 grid size-8 place-items-center rounded-full text-signal-dark transition-colors hover:bg-signal hover:text-ink"
               >
-                <Search className="size-5" />
+                <Search className="size-5 text-signal" />
               </button>
             </div>
           </form>
@@ -166,14 +166,14 @@ export function SiteHeader() {
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Какво търсиш днес?"
                   aria-label="Търсене на машини"
-                  className="h-11 w-full rounded-full border border-border bg-surface pl-5 pr-12 text-[14px] outline-none placeholder:text-foreground/45 focus:border-ink"
+                  className="h-11 w-full rounded-full border border-ink/80 bg-surface pl-5 pr-12 text-[14px] outline-none transition-colors placeholder:text-foreground/45 focus:border-ink"
                 />
                 <button
                   type="submit"
                   aria-label="Търси"
                   className="absolute right-1.5 top-1.5 grid size-8 place-items-center rounded-full text-signal-dark transition-colors hover:bg-signal hover:text-ink"
                 >
-                  <Search className="size-5" />
+                  <Search className="size-5 text-signal" />
                 </button>
               </div>
             </form>
