@@ -11,9 +11,11 @@ import {
   Heart,
   GitCompare,
   User,
+  Sparkles,
 } from "lucide-react";
 import { categories } from "@/lib/machines";
 import { megaGroups } from "@/lib/megaMenu";
+import { useAssistant } from "@/lib/assistant-context";
 import logoAsset from "@/assets/bauportal-logo.png.asset.json";
 
 const navItems = [
