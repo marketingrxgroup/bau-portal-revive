@@ -97,6 +97,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             />
             {value === "" && (
               <span
+                ref={textRef}
                 aria-hidden
                 className={`pointer-events-none absolute inset-y-0 left-0 flex items-center whitespace-nowrap pr-2 text-sm font-medium transition-transform duration-150 ease-out ${isGlass ? "text-white/80" : "text-foreground/45"}`}
                 style={{ transform: `translateX(${-offset}px)` }}
