@@ -388,7 +388,12 @@ function MachinePage() {
               </div>
               <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
                 {relatedByCategory.map((m) => (
-                  <div key={m.id} className="w-[78%] shrink-0 snap-start sm:w-[45%] lg:w-auto">
+                  <div
+                    key={m.id}
+                    className={`shrink-0 snap-start lg:w-auto ${
+                      relatedByCategory.length === 1 ? "w-full" : "w-[78%] sm:w-[45%]"
+                    }`}
+                  >
                     <MachineCard machine={m} />
                   </div>
                 ))}
@@ -413,7 +418,12 @@ function MachinePage() {
               </div>
               <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
                 {relatedByBrand.map((m) => (
-                  <div key={m.id} className="w-[78%] shrink-0 snap-start sm:w-[45%] lg:w-auto">
+                  <div
+                    key={m.id}
+                    className={`shrink-0 snap-start lg:w-auto ${
+                      relatedByBrand.length === 1 ? "w-full" : "w-[78%] sm:w-[45%]"
+                    }`}
+                  >
                     <MachineCard machine={m} />
                   </div>
                 ))}
