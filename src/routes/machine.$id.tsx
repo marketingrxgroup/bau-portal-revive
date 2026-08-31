@@ -105,7 +105,7 @@ function MachinePage() {
       <div className="mx-auto max-w-[1480px] px-4 pb-8">
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.5fr] items-start">
           {/* LEFT COLUMN — sticky visual + hero stats */}
-          <div className="sticky top-24 self-start">
+          <div className="lg:sticky lg:top-24 self-start">
             <div className="relative">
               {discountPercent !== null && (
                 <span className="absolute left-3 top-3 z-10 rounded bg-red-600 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white shadow">
@@ -160,15 +160,15 @@ function MachinePage() {
                 </button>
               ))}
             </div>
-            <div className="mt-5 grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-3">
+            <div className="mt-5 grid grid-cols-3 gap-px border border-border bg-border">
               {[
                 ["Година", String(machine.year)],
                 ["Кат. №", machine.catNo ?? "—"],
                 ["Моточасове", machine.hours.toLocaleString("bg-BG")],
               ].map(([k, v]) => (
-                <div key={k} className="bg-surface px-6 py-5 text-center">
-                  <p className="text-xs font-bold uppercase tracking-widest text-foreground/70">{k}</p>
-                  <p className="mt-1 text-2xl font-extrabold text-signal">{v}</p>
+                <div key={k} className="bg-surface px-2 py-3 text-center sm:px-6 sm:py-5">
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-foreground/70 sm:text-xs">{k}</p>
+                  <p className="mt-1 text-base font-extrabold text-signal sm:text-2xl">{v}</p>
                 </div>
               ))}
             </div>
