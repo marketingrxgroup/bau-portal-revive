@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Search, Sparkles, SlidersHorizontal } from "lucide-react";
 
@@ -24,7 +24,22 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    const field = fieldRef.current;
+    const text = textRef.current;
+    if (!field || !text) {
+      setOffset(0);
+      return;
+    }
+    const overflow = text.scrollWidth - field.clientWidth;
+    setOffset(overflow > 1 ? overflow : 0);
+  }, [typed]);
+
 
   useEffect(() => {
     if (focused) return;
@@ -71,7 +86,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
       >
         <div className={`relative flex flex-1 items-center gap-3 px-4 ${isGlass ? "rounded-xl bg-white/15 ring-1 ring-white/25" : "rounded-xl bg-muted/60"}`}>
           <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/50"}`} />
-          <div className="relative flex-1">
+          <div ref={fieldRef} className="relative flex-1 overflow-hidden">
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
@@ -82,8 +97,10 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             />
             {value === "" && (
               <span
+                ref={textRef}
                 aria-hidden
-                className={`pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/45"}`}
+                className={`pointer-events-none absolute inset-y-0 left-0 flex items-center whitespace-nowrap pr-2 text-sm font-medium transition-transform duration-150 ease-out ${isGlass ? "text-white/80" : "text-foreground/45"}`}
+                style={{ transform: `translateX(${-offset}px)` }}
               >
                 {typed}
                 <span className={`ml-0.5 inline-block h-3.5 w-px shrink-0 animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/40"}`} />
