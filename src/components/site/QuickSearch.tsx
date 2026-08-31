@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Search, Sparkles, SlidersHorizontal } from "lucide-react";
 
