@@ -166,12 +166,12 @@ export function SiteHeader() {
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Какво търсиш днес?"
                   aria-label="Търсене на машини"
-                  className="h-10 w-full rounded-full border-2 border-signal bg-surface pl-4 pr-11 text-[13px] outline-none placeholder:text-foreground/45"
+                  className="h-11 w-full rounded-full border border-border bg-surface pl-5 pr-12 text-[14px] outline-none placeholder:text-foreground/45 focus:border-ink"
                 />
                 <button
                   type="submit"
                   aria-label="Търси"
-                  className="absolute right-1 top-1 grid size-8 place-items-center rounded-full text-signal-dark"
+                  className="absolute right-1.5 top-1.5 grid size-8 place-items-center rounded-full text-signal-dark transition-colors hover:bg-signal hover:text-ink"
                 >
                   <Search className="size-5" />
                 </button>
@@ -180,7 +180,7 @@ export function SiteHeader() {
 
             <a
               href="tel:+359879620260"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-signal px-4 py-2 text-[14px] font-bold text-ink transition-colors hover:bg-ink hover:text-ink-foreground"
+              className="hidden shrink-0 items-center gap-2 rounded-full bg-signal px-4 py-2 text-[14px] font-bold text-ink transition-colors hover:bg-ink hover:text-ink-foreground sm:inline-flex"
             >
               <Phone className="size-4" />
               <span className="hidden sm:inline">0879 620 260</span>

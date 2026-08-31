@@ -240,18 +240,18 @@ export function HeroSlider() {
 
             {/* spec bar + dots bottom */}
             <div className="absolute inset-x-0 bottom-0 z-[11] flex flex-col items-center gap-3 p-4 sm:p-6">
-              <div className="hidden w-full max-w-[880px] grid-cols-2 gap-x-2 gap-y-2 rounded-2xl border border-white/25 bg-ink/45 px-3 py-3 backdrop-blur-xl sm:flex sm:flex-nowrap sm:items-center sm:justify-center sm:gap-0 sm:divide-x sm:divide-white/25 sm:px-2">
+              <div className="flex w-full max-w-[880px] items-center justify-center divide-x divide-white/25 rounded-2xl border border-white/25 bg-ink/45 px-1 py-2 backdrop-blur-xl sm:px-2 sm:py-3">
                 {specsOf(s).map(([k, v]) => {
                   const Icon = specIcon(k);
                   return (
-                    <div key={k} className="flex min-w-0 items-center gap-2 sm:flex-1 sm:gap-2.5 sm:px-5">
+                    <div key={k} className="flex min-w-0 flex-1 items-center justify-center gap-1.5 px-1.5 sm:gap-2.5 sm:px-5">
 
-                      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white/10 text-ink-foreground/80">
-                        <Icon className="size-4" />
+                      <span className="grid size-6 shrink-0 place-items-center rounded-md bg-white/10 text-ink-foreground/80 sm:size-8 sm:rounded-lg">
+                        <Icon className="size-3 sm:size-4" />
                       </span>
                       <span className="min-w-0">
-                        <span className="block truncate text-[11px] text-ink-foreground/65">{k}:</span>
-                        <span className="block truncate text-[13px] font-bold text-ink-foreground">{v}</span>
+                        <span className="block truncate text-[8px] leading-tight text-ink-foreground/65 sm:text-[11px]">{k}:</span>
+                        <span className="block truncate text-[10px] font-bold leading-tight text-ink-foreground sm:text-[13px]">{v}</span>
                       </span>
                     </div>
                   );
