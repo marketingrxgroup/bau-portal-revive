@@ -24,7 +24,22 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    const field = fieldRef.current;
+    const text = textRef.current;
+    if (!field || !text) {
+      setOffset(0);
+      return;
+    }
+    const overflow = text.scrollWidth - field.clientWidth;
+    setOffset(overflow > 1 ? overflow : 0);
+  }, [typed]);
+
 
   useEffect(() => {
     if (focused) return;
