@@ -113,6 +113,14 @@ export function SiteHeader() {
             </Link>
 
             <button
+              onClick={() => openAssistant("")}
+              className="grid size-10 place-items-center rounded-full bg-signal text-ink transition-colors hover:bg-signal/90 lg:hidden"
+              aria-label="AI асистент"
+            >
+              <Sparkles className="size-5" />
+            </button>
+
+            <button
               onClick={() => setOpen((v) => !v)}
               className="grid size-10 place-items-center rounded-full border border-border lg:hidden"
               aria-label="Меню"
