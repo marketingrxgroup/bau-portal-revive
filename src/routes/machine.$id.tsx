@@ -411,7 +411,7 @@ function MachinePage() {
                     <div
                       key={m.id}
                       className={`shrink-0 snap-start lg:w-auto ${
-                        relatedByCategory.length === 1 ? "w-full" : "w-[78%] sm:w-[45%]"
+                        relatedByCategory.length === 1 ? "w-full" : "w-full sm:w-[45%]"
                       }`}
                     >
                       <MachineCard machine={m} />
