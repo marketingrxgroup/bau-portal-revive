@@ -79,7 +79,7 @@ function MachinePage() {
 
       <div className="border-b border-border bg-surface">
         <div className="mx-auto max-w-[1480px] px-4">
-          <nav className="flex flex-wrap items-center gap-1.5 px-3 py-2 text-xs text-foreground/70">
+          <nav className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap px-3 py-2 text-xs text-foreground/70 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <Link to="/" className="flex items-center gap-1 hover:text-foreground">
               <Home className="size-3.5" />
               <span>Начало</span>
