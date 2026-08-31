@@ -5,7 +5,7 @@ import { Search, X, LayoutGrid, Tag, SlidersHorizontal } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { QuickSearch } from "@/components/site/QuickSearch";
-import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
+import { useAssistant } from "@/lib/assistant-context";
 import { MachineCard } from "@/components/site/MachineCard";
 import { Slider } from "@/components/ui/slider";
 import { categories, machinesListQuery } from "@/lib/machines";
@@ -64,8 +64,8 @@ function Catalog() {
   const [priceMax, setPriceMax] = useState<string>("");
   const [sort, setSort] = useState<string>("new");
   const [catQuery, setCatQuery] = useState("");
-  const [assistantOpen, setAssistantOpen] = useState(false);
-  const [assistantQuery, setAssistantQuery] = useState("");
+  const { openAssistant } = useAssistant();
+  const [catQuery, setCatQuery] = useState("");
   const [mobileSheet, setMobileSheet] = useState<"categories" | "brands" | "filters" | null>(null);
 
   const priceBounds = useMemo(() => {
