@@ -505,6 +505,193 @@ function Catalog() {
         </section>
       </div>
 
+      {/* Mobile bottom filter bar */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-signal bg-surface px-3 py-2.5 lg:hidden">
+        <div className="mx-auto flex max-w-[1480px] gap-2">
+          <button
+            type="button"
+            onClick={() => setMobileSheet("categories")}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-signal px-3 py-3 text-sm font-bold uppercase tracking-wide text-signal-foreground active:scale-[0.98]"
+          >
+            <LayoutGrid className="size-4" /> Категории
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileSheet("brands")}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-signal px-3 py-3 text-sm font-bold uppercase tracking-wide text-signal-foreground active:scale-[0.98]"
+          >
+            <Tag className="size-4" /> Марки
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileSheet("filters")}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-signal px-3 py-3 text-sm font-bold uppercase tracking-wide text-signal-foreground active:scale-[0.98]"
+          >
+            <SlidersHorizontal className="size-4" /> Филтри
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile bottom-sheet drawer */}
+      {mobileSheet && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setMobileSheet(null)}
+          />
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-surface p-4 pb-8 shadow-xl">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-extrabold tracking-tight">
+                {mobileSheet === "categories" ? "Категории" : mobileSheet === "brands" ? "Марки" : "Филтри"}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setMobileSheet(null)}
+                className="rounded-full p-1.5 text-foreground/70 hover:bg-muted"
+                aria-label="Затвори"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+
+            {mobileSheet === "categories" && (
+              <div>
+                <div className="relative mb-3">
+                  <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-foreground/60" />
+                  <input
+                    value={catQuery}
+                    onChange={(e) => setCatQuery(e.target.value)}
+                    placeholder="Търси"
+                    className="w-full rounded-full border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none focus:border-ink"
+                  />
+                </div>
+                <ul className="space-y-0.5">
+                  <li>
+                    <button
+                      onClick={() => { setCategory("Всички"); setSubcategory("Всички"); setMobileSheet(null); }}
+                      className={`flex w-full items-center justify-between rounded-r-lg border-l-2 px-3 py-2 text-left text-sm transition-colors ${
+                        category === "Всички" ? "border-foreground/30 bg-signal font-bold text-signal-foreground" : "border-transparent text-foreground/80 hover:bg-muted/60"
+                      }`}
+                    >
+                      Всички <span className="text-xs font-semibold text-foreground/70">({machines.length})</span>
+                    </button>
+                  </li>
+                  {visibleCategories.map((c) => {
+                    const isSelected = category === c.name;
+                    return (
+                      <li key={c.name}>
+                        <button
+                          onClick={() => { setCategory(c.name); setSubcategory("Всички"); setMobileSheet(null); }}
+                          className={`flex w-full items-center justify-between rounded-r-lg border-l-2 px-3 py-2 text-left text-sm transition-colors ${
+                            isSelected ? "border-foreground/30 bg-signal font-bold text-signal-foreground" : "border-transparent text-foreground/80 hover:bg-muted/60"
+                          }`}
+                        >
+                          <span>{c.name}</span>
+                          <span className="text-xs font-semibold text-foreground/70">({c.count})</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {mobileSheet === "brands" && (
+              <div>
+                <div className="relative mb-3">
+                  <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-foreground/50" />
+                  <input
+                    value={brandQuery}
+                    onChange={(e) => setBrandQuery(e.target.value)}
+                    placeholder="Търси"
+                    className="w-full rounded-full border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none focus:border-ink"
+                  />
+                </div>
+                <ul className="max-h-[55vh] space-y-0.5 overflow-y-auto pr-1">
+                  <li>
+                    <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-2 transition-colors hover:bg-muted/50">
+                      <input type="checkbox" checked={brand === "Всички"} onChange={() => { setBrand("Всички"); setMobileSheet(null); }} className="size-4 rounded border-border text-signal focus:ring-signal" />
+                      <span className="flex-1 text-sm text-foreground">Всички</span>
+                      <span className="text-xs font-semibold text-foreground/60">({machines.length})</span>
+                    </label>
+                  </li>
+                  {brands.filter((b) => b !== "Всички" && b.toLowerCase().includes(brandQuery.trim().toLowerCase())).map((b) => {
+                    const count = machines.filter((m) => m.brand === b).length;
+                    return (
+                      <li key={b}>
+                        <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-2 transition-colors hover:bg-muted/50">
+                          <input type="checkbox" checked={brand === b} onChange={() => { setBrand(b); setMobileSheet(null); }} className="size-4 rounded border-border text-signal focus:ring-signal" />
+                          <span className="flex-1 text-sm text-foreground">{b}</span>
+                          <span className="text-xs font-semibold text-foreground/60">({count})</span>
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {mobileSheet === "filters" && (
+              <div className="space-y-5">
+                <div>
+                  <h3 className="mb-2 text-sm font-extrabold tracking-tight">Състояние</h3>
+                  <ul className="space-y-1">
+                    {[
+                      { key: "all", label: "Всички", count: machines.length },
+                      { key: "Нова", label: "Нови", count: machines.filter((m) => m.condition === "Нова").length },
+                      { key: "Втора употреба", label: "Втора употреба", count: machines.filter((m) => m.condition === "Втора употреба").length },
+                    ].map((c) => (
+                      <li key={c.key}>
+                        <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 transition-colors hover:bg-muted/50">
+                          <input type="checkbox" checked={condition === (c.key as typeof condition)} onChange={() => setCondition(c.key as typeof condition)} className="size-4 rounded border-border text-signal focus:ring-signal" />
+                          <span className="flex-1 text-sm text-foreground">{c.label}</span>
+                          <span className="text-xs font-semibold text-foreground/60">({c.count})</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="mb-2 text-sm font-extrabold tracking-tight">Година</h3>
+                  <div className="flex items-center gap-2">
+                    <input type="number" value={yearFrom} onChange={(e) => setYearFrom(e.target.value)} placeholder="От" className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink" />
+                    <span className="text-foreground/50">–</span>
+                    <input type="number" value={yearTo} onChange={(e) => setYearTo(e.target.value)} placeholder="До" className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink" />
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="mb-2 text-sm font-extrabold tracking-tight">Цена</h3>
+                  <div className="mb-3 px-1">
+                    <Slider
+                      value={[priceMin ? Math.max(priceBounds.min, parseInt(priceMin, 10)) : priceBounds.min, priceMax ? Math.min(priceBounds.max, parseInt(priceMax, 10)) : priceBounds.max]}
+                      max={priceBounds.max}
+                      min={priceBounds.min}
+                      step={1000}
+                      onValueChange={([min, max]) => { setPriceMin(String(min)); setPriceMax(String(max)); }}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input type="number" value={priceMin} onChange={(e) => setPriceMin(e.target.value)} placeholder="Мин. цена" className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink" />
+                    <span className="text-foreground/50">–</span>
+                    <input type="number" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} placeholder="Макс. цена" className="h-10 w-full rounded-full border border-border bg-background px-3 text-sm text-foreground outline-none focus:border-ink" />
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setMobileSheet(null)}
+                  className="w-full rounded-xl bg-ink px-4 py-3 text-sm font-bold uppercase tracking-wide text-ink-foreground active:scale-[0.98]"
+                >
+                  Покажи {results.length} {results.length === 1 ? "обява" : "обяви"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <SiteFooter />
     </div>
   );
