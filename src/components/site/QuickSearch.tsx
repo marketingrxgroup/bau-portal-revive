@@ -116,8 +116,8 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         </button>
       </form>
 
-      <div className="mt-3 px-3 pb-1">
-        <div className={`mb-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest ${isGlass ? "text-white/80" : "text-foreground/60"}`}>
+      <div className="mt-2 px-3 pb-0.5">
+        <div className={`mb-1.5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest ${isGlass ? "text-white/80" : "text-foreground/60"}`}>
           <SlidersHorizontal className="size-3.5" /> Популярни
         </div>
         <div className="-mx-3 flex gap-2 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
