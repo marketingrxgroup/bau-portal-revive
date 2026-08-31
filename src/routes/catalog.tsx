@@ -66,6 +66,7 @@ function Catalog() {
   const [catQuery, setCatQuery] = useState("");
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantQuery, setAssistantQuery] = useState("");
+  const [mobileSheet, setMobileSheet] = useState<"categories" | "brands" | "filters" | null>(null);
 
   const priceBounds = useMemo(() => {
     const prices = machines.map((m) => m.price ?? 0).filter((p) => p > 0);
