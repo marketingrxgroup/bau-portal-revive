@@ -140,11 +140,6 @@ function Catalog() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <SearchAssistantModal
-        open={assistantOpen}
-        onClose={() => setAssistantOpen(false)}
-        initialQuery={assistantQuery}
-      />
 
       <div className="border-b border-border bg-surface">
         <div className="mx-auto max-w-[1480px] px-4 py-3">
