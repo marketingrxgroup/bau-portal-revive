@@ -386,9 +386,11 @@ function MachinePage() {
                   Виж всички <ChevronRight className="size-3.5" />
                 </Link>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
                 {relatedByCategory.map((m) => (
-                  <MachineCard key={m.id} machine={m} />
+                  <div key={m.id} className="w-[78%] shrink-0 snap-start sm:w-[45%] lg:w-auto">
+                    <MachineCard machine={m} />
+                  </div>
                 ))}
               </div>
             </section>
@@ -409,9 +411,11 @@ function MachinePage() {
                   Виж всички <ChevronRight className="size-3.5" />
                 </Link>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
                 {relatedByBrand.map((m) => (
-                  <MachineCard key={m.id} machine={m} />
+                  <div key={m.id} className="w-[78%] shrink-0 snap-start sm:w-[45%] lg:w-auto">
+                    <MachineCard machine={m} />
+                  </div>
                 ))}
               </div>
             </section>
