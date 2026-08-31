@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, Sparkles, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { Search, Sparkles, SlidersHorizontal } from "lucide-react";
 
 const quick = ["Мини багери", "Кари", "Телескопични товарачи", "Челни товарачи", "Камиони", "за копаене", "за извозване", "за къртене", "Багери", "Комбинирани багери", "Мини челни товарачи"];
 
@@ -24,8 +24,6 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const [popularOpen, setPopularOpen] = useState(false);
-  const popularRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,44 +99,24 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
         </button>
       </form>
 
-      <div className="mt-3 flex items-center gap-2 px-3">
-        <div className="relative" ref={popularRef}>
-          <button
-            type="button"
-            onClick={() => setPopularOpen((v) => !v)}
-            className={`inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-xs font-bold uppercase tracking-widest transition-colors ${isGlass ? "border-white/25 bg-white/15 text-white/90 hover:bg-white/25" : "border-border bg-surface text-foreground/80 hover:border-ink hover:text-foreground"}`}
-            aria-expanded={popularOpen}
-            aria-haspopup="true"
-          >
-            <SlidersHorizontal className="size-3.5" /> Популярни
-            <ChevronDown className={`size-3.5 transition-transform ${popularOpen ? "rotate-180" : ""}`} />
-          </button>
-          {popularOpen && (
-            <>
-              <div className="fixed inset-0 z-30" onClick={() => setPopularOpen(false)} />
-              <div
-                className={`absolute left-0 top-full z-40 mt-2 w-64 rounded-2xl border p-2 shadow-lg ${isGlass ? "border-white/20 bg-ink/95 text-ink-foreground backdrop-blur-xl" : "border-border bg-surface text-foreground"}`}
-              >
-                <div className="flex flex-wrap gap-1.5">
-                  {quick.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => {
-                        handleSubmit(s);
-                        setPopularOpen(false);
-                      }}
-                      className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${isGlass ? "border-white/20 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-border text-foreground/70 hover:border-ink hover:text-foreground"}`}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
+      <div className="mt-3 px-3 pb-1">
+        <div className={`mb-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest ${isGlass ? "text-white/80" : "text-foreground/60"}`}>
+          <SlidersHorizontal className="size-3.5" /> Популярни
+        </div>
+        <div className="-mx-3 flex gap-2 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {quick.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => handleSubmit(s)}
+              className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:bg-white/20 hover:text-white" : "border-border text-foreground/70 hover:border-ink hover:text-foreground"}`}
+            >
+              {s}
+            </button>
+          ))}
         </div>
       </div>
+
     </div>
   );
 }
