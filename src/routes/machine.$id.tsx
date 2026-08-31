@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Phone, Mail, Check, CreditCard, ChevronDown, ChevronLeft, ChevronRight, Home } from "lucide-react";
