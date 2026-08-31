@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, Sparkles, SlidersHorizontal } from "lucide-react";
+import { Search, Sparkles, SlidersHorizontal, ChevronDown } from "lucide-react";
 
 const quick = ["Мини багери", "Кари", "Телескопични товарачи", "Челни товарачи", "Камиони", "за копаене", "за извозване", "за къртене", "Багери", "Комбинирани багери", "Мини челни товарачи"];
 
@@ -24,6 +24,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [popularOpen, setPopularOpen] = useState(false);
   const [offset, setOffset] = useState(0);
   const fieldRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -108,15 +109,46 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             )}
           </div>
         </div>
-        <button
-          type="submit"
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-all active:scale-[0.98] ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground hover:bg-ink/90"}`}
-        >
-          <Sparkles className={`size-4 ${isGlass ? "text-signal-foreground" : "text-signal"}`} /> AI Асистент
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="submit"
+            className={`inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl px-7 text-xs font-bold uppercase tracking-widest transition-all active:scale-[0.98] sm:flex-none ${isGlass ? "bg-signal text-signal-foreground hover:bg-signal/90" : "bg-ink text-ink-foreground hover:bg-ink/90"}`}
+          >
+            <Sparkles className={`size-4 ${isGlass ? "text-signal-foreground" : "text-signal"}`} /> AI Асистент
+          </button>
+          <button
+            type="button"
+            onClick={() => setPopularOpen((o) => !o)}
+            aria-expanded={popularOpen}
+            className={`inline-flex h-12 shrink-0 items-center gap-1.5 rounded-xl px-3 text-xs font-bold uppercase tracking-widest transition-colors sm:hidden ${isGlass ? "border border-white/25 bg-white/15 text-white" : "border border-border bg-muted/60 text-foreground/70"}`}
+          >
+            <SlidersHorizontal className="size-3.5" />
+            <ChevronDown className={`size-3.5 transition-transform ${popularOpen ? "rotate-180" : ""}`} />
+          </button>
+        </div>
       </form>
 
-      <div className="mt-2 px-3 pb-0.5">
+      {popularOpen && (
+        <div className="mt-2 px-1.5 pb-1.5 sm:hidden">
+          <div className={`flex flex-wrap gap-2 rounded-xl p-3 ${isGlass ? "bg-white/15 ring-1 ring-white/25" : "bg-muted/60"}`}>
+            {quick.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => {
+                  setPopularOpen(false);
+                  handleSubmit(s);
+                }}
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${isGlass ? "border-white/25 bg-white/10 text-white/90 hover:border-signal hover:text-white" : "border-border text-foreground/70 hover:border-ink hover:text-foreground"}`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-2 hidden px-3 pb-0.5 sm:block">
         <div className={`mb-1.5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest ${isGlass ? "text-white/80" : "text-foreground/60"}`}>
           <SlidersHorizontal className="size-3.5" /> Популярни
         </div>
@@ -133,6 +165,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
           ))}
         </div>
       </div>
+
 
     </div>
   );
