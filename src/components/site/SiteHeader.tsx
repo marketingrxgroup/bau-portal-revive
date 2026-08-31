@@ -270,47 +270,55 @@ export function SiteHeader() {
       {/* mobile */}
       {open && (
         <div className="max-h-[calc(100vh-128px)] overflow-y-auto border-b border-border bg-surface lg:hidden">
-          <div className="mx-auto max-w-[1480px] px-4 py-4">
-            {megaGroups.map((g) => (
-              <div key={g.title} className="border-b border-border">
-                <button
-                  onClick={() => setMobileGroup(mobileGroup === g.title ? null : g.title)}
-                  className="flex w-full items-center justify-between py-3 text-left text-sm font-bold"
-                >
-                  {g.title}
-                  <ChevronDown className={`size-4 transition-transform ${mobileGroup === g.title ? "rotate-180" : ""}`} />
-                </button>
-                {mobileGroup === g.title && (
-                  <ul className="space-y-2 pb-3 pl-3">
-                    {g.items.map((i) => (
-                      <li key={i}>
-                        <Link
-                          to="/catalog"
-                          search={{ q: i }}
-                          onClick={() => setOpen(false)}
-                          className="text-[13px] text-foreground/70 transition-colors hover:text-foreground"
-                        >
-                          {i}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-            <div className="mt-3 flex flex-wrap gap-2">
-              {navItems.map((l) => (
-                <Link
-                  key={l.label}
-                  to="/catalog"
-                  search={{ q: "" }}
-                  onClick={() => setOpen(false)}
-                  className="rounded-full bg-muted px-3 py-2 text-[13px] font-bold"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
+          <div className="mx-auto max-w-[1480px] px-4 py-3">
+            {navItems.map((n) => {
+              const group = megaGroups.find((g) => g.title === n.label);
+              const expanded = mobileGroup === n.label;
+              return (
+                <div key={n.label} className="border-b border-border last:border-b-0">
+                  <div className="flex items-stretch">
+                    <Link
+                      to="/catalog"
+                      search={{ q: n.mega ? "" : n.label }}
+                      onClick={() => setOpen(false)}
+                      className="flex flex-1 items-center gap-2 py-3.5 text-[15px] font-bold text-foreground"
+                    >
+                      <span>{n.label}</span>
+                      {n.badge && (
+                        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-signal px-1.5 text-[10px] font-black text-ink">
+                          {n.badge}
+                        </span>
+                      )}
+                    </Link>
+                    {n.mega && group && (
+                      <button
+                        onClick={() => setMobileGroup(expanded ? null : n.label)}
+                        aria-label={expanded ? "Свий" : "Разгъни"}
+                        className="grid w-10 place-items-center text-foreground/60"
+                      >
+                        <ChevronDown className={`size-5 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                      </button>
+                    )}
+                  </div>
+                  {n.mega && group && expanded && (
+                    <ul className="grid grid-cols-2 gap-x-4 gap-y-2 pb-3 pl-1">
+                      {group.items.map((i) => (
+                        <li key={i}>
+                          <Link
+                            to="/catalog"
+                            search={{ q: i }}
+                            onClick={() => setOpen(false)}
+                            className="text-[13px] text-foreground/70 transition-colors hover:text-foreground"
+                          >
+                            {i}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
