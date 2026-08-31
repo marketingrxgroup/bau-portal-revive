@@ -122,7 +122,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
           </button>
           <div
             ref={quickRef}
-            className="flex min-w-0 flex-1 flex-wrap items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-nowrap"
+            className="flex min-w-0 flex-1 flex-nowrap items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {quick.map((s) => (
               <button
