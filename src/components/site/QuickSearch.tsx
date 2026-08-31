@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, Sparkles, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { Search, Sparkles, SlidersHorizontal } from "lucide-react";
 
 const quick = ["Мини багери", "Кари", "Телескопични товарачи", "Челни товарачи", "Камиони", "за копаене", "за извозване", "за къртене", "Багери", "Комбинирани багери", "Мини челни товарачи"];
 
@@ -24,8 +24,6 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const [popularOpen, setPopularOpen] = useState(false);
-  const popularRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
