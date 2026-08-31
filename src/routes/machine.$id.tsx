@@ -394,17 +394,38 @@ function MachinePage() {
                   Виж всички <ChevronRight className="size-3.5" />
                 </Link>
               </div>
-              <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
-                {relatedByCategory.map((m) => (
-                  <div
-                    key={m.id}
-                    className={`shrink-0 snap-start lg:w-auto ${
-                      relatedByCategory.length === 1 ? "w-full" : "w-[78%] sm:w-[45%]"
-                    }`}
-                  >
-                    <MachineCard machine={m} />
-                  </div>
-                ))}
+              <div className="relative lg:static">
+                <button
+                  type="button"
+                  aria-label="Скролирай наляво"
+                  onClick={() => scrollBy(categoryScrollRef, -1)}
+                  className="absolute left-0 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-surface text-foreground shadow-md transition-colors hover:border-ink hover:text-ink lg:hidden"
+                >
+                  <ChevronLeft className="size-5" />
+                </button>
+                <div
+                  ref={categoryScrollRef}
+                  className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0"
+                >
+                  {relatedByCategory.map((m) => (
+                    <div
+                      key={m.id}
+                      className={`shrink-0 snap-start lg:w-auto ${
+                        relatedByCategory.length === 1 ? "w-full" : "w-[78%] sm:w-[45%]"
+                      }`}
+                    >
+                      <MachineCard machine={m} />
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  aria-label="Скролирай надясно"
+                  onClick={() => scrollBy(categoryScrollRef, 1)}
+                  className="absolute right-0 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-surface text-foreground shadow-md transition-colors hover:border-ink hover:text-ink lg:hidden"
+                >
+                  <ChevronRight className="size-5" />
+                </button>
               </div>
             </section>
           )}
