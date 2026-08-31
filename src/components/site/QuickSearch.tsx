@@ -24,15 +24,9 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const quickRef = useRef<HTMLDivElement>(null);
+  const [popularOpen, setPopularOpen] = useState(false);
+  const popularRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  const scrollQuick = (dir: "left" | "right") => {
-    const el = quickRef.current;
-    if (!el) return;
-    const amount = 240;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
-  };
 
   useEffect(() => {
     if (focused) return;
