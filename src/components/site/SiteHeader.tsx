@@ -11,9 +11,11 @@ import {
   Heart,
   GitCompare,
   User,
+  Sparkles,
 } from "lucide-react";
 import { categories } from "@/lib/machines";
 import { megaGroups } from "@/lib/megaMenu";
+import { useAssistant } from "@/lib/assistant-context";
 import logoAsset from "@/assets/bauportal-logo.png.asset.json";
 
 const navItems = [
@@ -34,6 +36,7 @@ export function SiteHeader() {
   const [q, setQ] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const { openAssistant } = useAssistant();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -108,6 +111,14 @@ export function SiteHeader() {
             >
               <User className="size-5" /> Акаунт
             </Link>
+
+            <button
+              onClick={() => openAssistant("")}
+              className="grid size-10 place-items-center rounded-full bg-signal text-ink transition-colors hover:bg-signal/90 lg:hidden"
+              aria-label="AI асистент"
+            >
+              <Sparkles className="size-5" />
+            </button>
 
             <button
               onClick={() => setOpen((v) => !v)}

@@ -5,7 +5,7 @@ import { Search, X, LayoutGrid, Tag, SlidersHorizontal } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { QuickSearch } from "@/components/site/QuickSearch";
-import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
+import { useAssistant } from "@/lib/assistant-context";
 import { MachineCard } from "@/components/site/MachineCard";
 import { Slider } from "@/components/ui/slider";
 import { categories, machinesListQuery } from "@/lib/machines";
@@ -64,8 +64,7 @@ function Catalog() {
   const [priceMax, setPriceMax] = useState<string>("");
   const [sort, setSort] = useState<string>("new");
   const [catQuery, setCatQuery] = useState("");
-  const [assistantOpen, setAssistantOpen] = useState(false);
-  const [assistantQuery, setAssistantQuery] = useState("");
+  const { openAssistant } = useAssistant();
   const [mobileSheet, setMobileSheet] = useState<"categories" | "brands" | "filters" | null>(null);
 
   const priceBounds = useMemo(() => {
@@ -141,11 +140,6 @@ function Catalog() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <SearchAssistantModal
-        open={assistantOpen}
-        onClose={() => setAssistantOpen(false)}
-        initialQuery={assistantQuery}
-      />
 
       <div className="border-b border-border bg-surface">
         <div className="mx-auto max-w-[1480px] px-4 py-3">
@@ -184,12 +178,7 @@ function Catalog() {
           </div>
 
           <div className="mt-3">
-            <QuickSearch
-              onOpenAssistant={(query) => {
-                setAssistantQuery(query);
-                setAssistantOpen(true);
-              }}
-            />
+            <QuickSearch onOpenAssistant={openAssistant} />
           </div>
 
         </div>

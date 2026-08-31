@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, ArrowUpRight, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { QuickSearch } from "@/components/site/QuickSearch";
-import { SearchAssistantModal } from "@/components/site/SearchAssistantModal";
+import { useAssistant } from "@/lib/assistant-context";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { MachineCard } from "@/components/site/MachineCard";
 import { CategoryConstellation } from "@/components/site/CategoryConstellation";
@@ -50,23 +49,11 @@ function Home() {
   const machines = useSuspenseQuery(machinesListQuery).data;
   const promo = machines.slice(0, 4);
   const rest = machines.slice(4);
-  const [assistantOpen, setAssistantOpen] = useState(false);
-  const [assistantQuery, setAssistantQuery] = useState("");
-
-  const openAssistant = (query: string) => {
-    setAssistantQuery(query);
-    setAssistantOpen(true);
-  };
+  const { openAssistant } = useAssistant();
 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-
-      <SearchAssistantModal
-        open={assistantOpen}
-        onClose={() => setAssistantOpen(false)}
-        initialQuery={assistantQuery}
-      />
 
       <HeroSlider />
 
