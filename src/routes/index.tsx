@@ -194,14 +194,14 @@ function Home() {
 
         <main>
           {/* PROMO LISTINGS */}
-          <div className="mb-4 flex items-end justify-between border-b border-border pb-3">
-            <h2 className="inline-flex items-center gap-2 text-xl font-extrabold uppercase tracking-tight">
+          <div className="mb-4 flex items-center justify-between gap-3 border-b border-border pb-3">
+            <h2 className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-base font-extrabold uppercase tracking-tight sm:text-xl">
               <Flame className="size-5 text-signal" /> Промотирани обяви
             </h2>
             <Link
               to="/catalog"
               search={{ q: "" }}
-              className="text-[11px] font-bold uppercase tracking-widest text-foreground/70 hover:text-foreground"
+              className="shrink-0 text-[11px] font-bold uppercase tracking-widest text-foreground/70 hover:text-foreground"
             >
               Виж всички →
             </Link>
