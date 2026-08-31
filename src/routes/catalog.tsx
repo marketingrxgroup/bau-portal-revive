@@ -197,8 +197,8 @@ function Catalog() {
 
 
 
-      <div className="mx-auto grid max-w-[1480px] gap-6 px-4 py-8 lg:grid-cols-[300px_1fr]">
-        <aside className="h-fit space-y-4 lg:sticky lg:top-[120px]">
+      <div className="mx-auto grid max-w-[1480px] gap-6 px-4 pb-24 pt-8 lg:grid-cols-[300px_1fr] lg:pb-8">
+        <aside className="hidden h-fit space-y-4 lg:block lg:sticky lg:top-[120px]">
           <div className="rounded-2xl border border-border bg-surface p-5">
             <h2 className="mb-4 text-lg font-extrabold tracking-tight">Категории</h2>
 
