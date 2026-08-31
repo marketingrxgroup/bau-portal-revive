@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, Sparkles, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Sparkles, SlidersHorizontal, ChevronDown } from "lucide-react";
 
 const quick = ["Мини багери", "Кари", "Телескопични товарачи", "Челни товарачи", "Камиони", "за копаене", "за извозване", "за къртене", "Багери", "Комбинирани багери", "Мини челни товарачи"];
 
