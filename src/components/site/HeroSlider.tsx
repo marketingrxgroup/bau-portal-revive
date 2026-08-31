@@ -238,38 +238,18 @@ export function HeroSlider() {
               </h1>
             </div>
 
-            {/* spec bar + dots bottom */}
-            <div className="absolute inset-x-0 bottom-0 z-[11] flex flex-col items-center gap-3 p-4 sm:p-6">
-              <div className="flex w-full max-w-[880px] items-center justify-center divide-x divide-white/25 rounded-2xl border border-white/25 bg-ink/45 px-1 py-2 backdrop-blur-xl sm:px-2 sm:py-3">
-                {specsOf(s).map(([k, v]) => {
-                  const Icon = specIcon(k);
-                  return (
-                    <div key={k} className="flex min-w-0 flex-1 items-center justify-center gap-1.5 px-1.5 sm:gap-2.5 sm:px-5">
-
-                      <span className="grid size-6 shrink-0 place-items-center rounded-md bg-white/10 text-ink-foreground/80 sm:size-8 sm:rounded-lg">
-                        <Icon className="size-3 sm:size-4" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-[8px] leading-tight text-ink-foreground/65 sm:text-[11px]">{k}:</span>
-                        <span className="block truncate text-[10px] font-bold leading-tight text-ink-foreground sm:text-[13px]">{v}</span>
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center gap-2">
-                {slides.map((sl, idx) => (
-                  <button
-                    key={sl.title}
-                    onClick={() => select(idx)}
-                    aria-label={sl.title}
-                    className={`rounded-full transition-all ${
-                      idx === i ? "size-2.5 bg-signal" : "size-2 bg-white/50 hover:bg-white/80"
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* dots bottom */}
+            <div className="absolute inset-x-0 bottom-0 z-[11] flex items-center justify-center gap-2 p-4 sm:p-6">
+              {slides.map((sl, idx) => (
+                <button
+                  key={sl.title}
+                  onClick={() => select(idx)}
+                  aria-label={sl.title}
+                  className={`rounded-full transition-all ${
+                    idx === i ? "size-2.5 bg-signal" : "size-2 bg-white/50 hover:bg-white/80"
+                  }`}
+                />
+              ))}
             </div>
 
             {/* hover arrows */}
