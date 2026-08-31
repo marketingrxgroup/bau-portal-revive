@@ -104,6 +104,12 @@ function MachinePage() {
 
       <div className="mx-auto max-w-[1480px] px-4 pb-8">
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.5fr] items-start">
+          {/* MOBILE TITLE — above the image on small screens */}
+          <div className="lg:hidden">
+            <p className="label-caps text-foreground/70">{machine.brand}</p>
+            <h1 className="mt-1 text-2xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+          </div>
+
           {/* LEFT COLUMN — sticky visual + hero stats */}
           <div className="lg:sticky lg:top-24 self-start">
             <div className="relative">
@@ -176,8 +182,10 @@ function MachinePage() {
 
           {/* RIGHT COLUMN — scrollable content */}
           <div>
-            <p className="label-caps text-foreground/70">{machine.brand}</p>
-            <h1 className="mt-1 text-3xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+            <div className="hidden lg:block">
+              <p className="label-caps text-foreground/70">{machine.brand}</p>
+              <h1 className="mt-1 text-3xl font-extrabold leading-tight text-foreground">{machine.title}</h1>
+            </div>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">{machine.description}</p>
 
             <div className="mt-5 border border-border bg-surface p-5">
