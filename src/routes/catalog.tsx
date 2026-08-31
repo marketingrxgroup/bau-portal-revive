@@ -178,12 +178,7 @@ function Catalog() {
           </div>
 
           <div className="mt-3">
-            <QuickSearch
-              onOpenAssistant={(query) => {
-                setAssistantQuery(query);
-                setAssistantOpen(true);
-              }}
-            />
+            <QuickSearch onOpenAssistant={openAssistant} />
           </div>
 
         </div>
