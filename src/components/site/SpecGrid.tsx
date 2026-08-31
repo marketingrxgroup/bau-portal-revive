@@ -25,9 +25,9 @@ export function SpecGrid({
           {rows.length} параметъра
         </span>
       </div>
-      <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((row) => (
-          <div key={row.label} className="bg-surface px-4 py-2.5 transition-colors hover:bg-secondary">
+          <div key={row.label} className="bg-surface px-3 py-2.5 transition-colors hover:bg-secondary">
             <p className="text-[10px] font-bold uppercase leading-tight tracking-widest text-foreground/60">
               {row.label}
             </p>
