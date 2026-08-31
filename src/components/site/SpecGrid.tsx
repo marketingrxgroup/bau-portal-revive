@@ -17,11 +17,11 @@ export function SpecGrid({
 
   return (
     <div className="overflow-hidden border border-border bg-surface">
-      <div className="flex items-center justify-between border-b-2 border-signal bg-ink px-5 py-3">
-        <h2 className="text-sm font-extrabold uppercase tracking-tight text-ink-foreground">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-signal bg-ink px-4 py-3 sm:px-5">
+        <h2 className="truncate text-sm font-extrabold uppercase tracking-tight text-ink-foreground">
           {title}
         </h2>
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-signal">
+        <span className="shrink-0 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.15em] text-signal">
           {rows.length} параметъра
         </span>
       </div>
