@@ -177,7 +177,7 @@ function Catalog() {
             )}
           </div>
 
-          <div className="mt-3">
+          <div className="mt-3 hidden sm:block">
             <QuickSearch onOpenAssistant={openAssistant} />
           </div>
 
