@@ -207,7 +207,7 @@ function MachinePage() {
                 )}
               </div>
 
-              <div className="mt-4 grid grid-cols-3 gap-2">
+              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
                 <button className="flex items-center justify-center gap-2 bg-ink py-3 text-[11px] font-bold uppercase tracking-widest text-ink-foreground transition-colors hover:bg-ink/90">
                   <Mail className="size-4" /> Изпрати запитване
                 </button>
