@@ -71,7 +71,7 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
       >
         <div className={`relative flex flex-1 items-center gap-3 px-4 ${isGlass ? "rounded-xl bg-white/15 ring-1 ring-white/25" : "rounded-xl bg-muted/60"}`}>
           <Search className={`size-4 shrink-0 ${isGlass ? "text-white/70" : "text-foreground/50"}`} />
-          <div className="relative flex-1">
+          <div ref={fieldRef} className="relative flex-1 overflow-hidden">
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
@@ -83,7 +83,8 @@ export function QuickSearch({ variant = "default", onOpenAssistant }: QuickSearc
             {value === "" && (
               <span
                 aria-hidden
-                className={`pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center truncate pr-2 text-sm font-medium ${isGlass ? "text-white/80" : "text-foreground/45"}`}
+                className={`pointer-events-none absolute inset-y-0 left-0 flex items-center whitespace-nowrap pr-2 text-sm font-medium transition-transform duration-150 ease-out ${isGlass ? "text-white/80" : "text-foreground/45"}`}
+                style={{ transform: `translateX(${-offset}px)` }}
               >
                 {typed}
                 <span className={`ml-0.5 inline-block h-3.5 w-px shrink-0 animate-pulse ${isGlass ? "bg-white/50" : "bg-foreground/40"}`} />
